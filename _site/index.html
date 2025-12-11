@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中国性少数历史档案</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-container">
+      <div class="nav-links">
+        <a href="/" class="active">首页</a>
+        <a href="/archive" >档案库</a>
+        <a href="/about" >关于</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero-wrapper">
+    
+    <section class="hero">
+      <div class="hero-content">
+        
+        <h1>中国性少数历史档案</h1>
+        
+      </div>
+    </section>
+  </div>
+
+  <main class="main-content">
+    <div class="timeline-section">
+
+
+<div class="timeline">
+  
+  <div class="year-section">
+    <div class="year-marker">
+      <span class="year-label">2025</span>
+    </div>
+    
+    
+    <article class="card">
+      <a href="/entries/%E5%BA%8F%E8%A8%80/" class="card-link">
+        <div class="card-date">12月11日</div>
+        <h3 class="card-title">序言</h3>
+        <p class="card-summary">从2020年到现在，我陆陆续续写了有将近20万字的文章，这些是直接和性少数整体相关的。我对于性少数运动、政治、社会这些不同的议题都有了不小的变化。如果从时间顺序来看，也许读者能注意到我在观念上的一些微妙的变迁。但是有一点是不怎么变的，那就是我仍然会持续地写下去，而且不仅仅是写下去，还要做更切实的事情。谨以此文辑纪念2025年的5月17日世界不再恐同日。</p>
+      </a>
+      
+      <div class="card-tags">
+        
+        <a href="/archive/?tag=lgbt" class="card-tag">lgbt</a>
+        
+      </div>
+      
+    </article>
+    
+  </div>
+  
+</div>
+
+
+</div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 中国性少数历史档案</p>
+  </footer>
+
+  <script>
+    const header = document.querySelector('.site-header');
+    const hero = document.querySelector('.hero-wrapper');
+    
+    function checkScroll() {
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      if (heroBottom <= 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      // 渐变流动效果 - hero 滑完时刚好变完
+      if (hero) {
+        const heroHeight = hero.offsetHeight;
+        const scrollY = window.scrollY;
+        const progress = Math.min((scrollY / heroHeight) * 100, 100);
+        hero.style.backgroundPosition = `${progress}% ${progress}%`;
+      }
+    }
+    
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+  </script>
+</body>
+</html>

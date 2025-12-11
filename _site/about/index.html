@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于 | 中国性少数历史档案</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-container">
+      <div class="nav-links">
+        <a href="/" >首页</a>
+        <a href="/archive" >档案库</a>
+        <a href="/about" class="active">关于</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero-wrapper">
+    
+    <section class="hero">
+      <div class="hero-content">
+        
+        <h1>关于</h1>
+        
+      </div>
+    </section>
+  </div>
+
+  <main class="main-content">
+    <p>本网站旨在记录和共享关于中国地区的性少数历史。当下，我们坚持在中国共产党的领导下，通过温和有效的策略促成社会不同群体的沟通和理解，不断朝向每个生命都可以自由而全面发展的未来努力前进。没有生命会被遗忘，没有苦痛会被忽视。</p>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 中国性少数历史档案</p>
+  </footer>
+
+  <script>
+    const header = document.querySelector('.site-header');
+    const hero = document.querySelector('.hero-wrapper');
+    
+    function checkScroll() {
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      if (heroBottom <= 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      // 渐变流动效果 - hero 滑完时刚好变完
+      if (hero) {
+        const heroHeight = hero.offsetHeight;
+        const scrollY = window.scrollY;
+        const progress = Math.min((scrollY / heroHeight) * 100, 100);
+        hero.style.backgroundPosition = `${progress}% ${progress}%`;
+      }
+    }
+    
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+  </script>
+</body>
+</html>

@@ -1,14 +1,43 @@
----
-layout: default
-title: 档案库
-permalink: /archive/
----
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>档案库 | 中国性少数历史档案</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-container">
+      <div class="nav-links">
+        <a href="/" >首页</a>
+        <a href="/archive" class="active">档案库</a>
+        <a href="/about" >关于</a>
+      </div>
+    </nav>
+  </header>
 
-<div class="archive-page">
+  <div class="hero-wrapper">
+    
+    <section class="hero">
+      <div class="hero-content">
+        
+        <h1>档案库</h1>
+        
+      </div>
+    </section>
+  </div>
+
+  <main class="main-content">
+    <div class="archive-page">
   
   <div class="archive-filters">
     <div class="search-box">
-      <input type="text" id="search-input" placeholder="搜索档案...">
+      <input type="text" id="search-input" placeholder="搜索档案..." />
     </div>
     
     <div class="filter-row">
@@ -16,17 +45,12 @@ permalink: /archive/
         <span class="filter-label">年份</span>
         <div class="filter-tags" id="year-filters">
           <button class="filter-btn active" data-year="all">全部</button>
-          {% assign all_years = "" | split: "" %}
-          {% for entry in site.entries %}
-            {% assign entry_year = entry.date | date: '%Y' %}
-            {% unless all_years contains entry_year %}
-              {% assign all_years = all_years | push: entry_year %}
-            {% endunless %}
-          {% endfor %}
-          {% assign sorted_years = all_years | sort | reverse %}
-          {% for year in sorted_years %}
-          <button class="filter-btn" data-year="{{ year }}">{{ year }}</button>
-          {% endfor %}
+          
+          
+          
+          
+          <button class="filter-btn" data-year="2025">2025</button>
+          
         </div>
       </div>
       
@@ -34,18 +58,18 @@ permalink: /archive/
         <span class="filter-label">标签</span>
         <div class="filter-tags" id="tag-filters">
           <button class="filter-btn active" data-tag="all">全部</button>
-          {% assign all_tags = site.entries | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
-          {% for tag in all_tags %}
-          {% if tag != '' %}
-          <button class="filter-btn" data-tag="{{ tag }}">{{ tag }}</button>
-          {% endif %}
-          {% endfor %}
+          
+          
+          
+          <button class="filter-btn" data-tag="lgbt">lgbt</button>
+          
+          
         </div>
       </div>
     </div>
   </div>
 
-  {% assign sorted_entries = site.entries | sort: 'date' | reverse %}
+  
   
   <table class="archive-table" id="archive-list">
     <thead>
@@ -56,21 +80,21 @@ permalink: /archive/
       </tr>
     </thead>
     <tbody>
-      {% for entry in sorted_entries %}
-      <tr class="archive-row" data-year="{{ entry.date | date: '%Y' }}" data-tags="{{ entry.tags | join: ',' }}" data-title="{{ entry.title }}" data-summary="{{ entry.summary }}" onclick="window.location='{{ entry.url | relative_url }}'">
-        <td class="col-date">{{ entry.date | date: "%Y-%m-%d" }}</td>
-        <td class="col-title">{{ entry.title }}</td>
+      
+      <tr class="archive-row" data-year="2025" data-tags="lgbt" data-title="序言" data-summary="从2020年到现在，我陆陆续续写了有将近20万字的文章，这些是直接和性少数整体相关的。我对于性少数运动、政治、社会这些不同的议题都有了不小的变化。如果从时间顺序来看，也许读者能注意到我在观念上的一些微妙的变迁。但是有一点是不怎么变的，那就是我仍然会持续地写下去，而且不仅仅是写下去，还要做更切实的事情。谨以此文辑纪念2025年的5月17日世界不再恐同日。" onclick="window.location='/entries/%E5%BA%8F%E8%A8%80/'">
+        <td class="col-date">2025-12-11</td>
+        <td class="col-title">序言</td>
         <td class="col-tags">
           <div class="tags-wrapper">
-            {% if entry.tags %}
-            {% for tag in entry.tags %}
-            <a href="{{ '/archive/?tag=' | append: tag | relative_url }}" class="archive-tag" onclick="event.stopPropagation()">{{ tag }}</a>
-            {% endfor %}
-            {% endif %}
+            
+            
+            <a href="/archive/?tag=lgbt" class="archive-tag" onclick="event.stopPropagation()">lgbt</a>
+            
+            
           </div>
         </td>
       </tr>
-      {% endfor %}
+      
     </tbody>
   </table>
   
@@ -183,3 +207,37 @@ document.addEventListener('DOMContentLoaded', function() {
   loadFromURL();
 });
 </script>
+
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 中国性少数历史档案</p>
+  </footer>
+
+  <script>
+    const header = document.querySelector('.site-header');
+    const hero = document.querySelector('.hero-wrapper');
+    
+    function checkScroll() {
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      if (heroBottom <= 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      // 渐变流动效果 - hero 滑完时刚好变完
+      if (hero) {
+        const heroHeight = hero.offsetHeight;
+        const scrollY = window.scrollY;
+        const progress = Math.min((scrollY / heroHeight) * 100, 100);
+        hero.style.backgroundPosition = `${progress}% ${progress}%`;
+      }
+    }
+    
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+  </script>
+</body>
+</html>

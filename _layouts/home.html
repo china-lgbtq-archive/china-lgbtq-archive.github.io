@@ -2,11 +2,7 @@
 layout: default
 ---
 
-<div class="home-intro">
-  <h1>{{ site.title }}</h1>
-  <p class="intro-text">{{ site.description }}</p>
-</div>
-
+<div class="timeline-section">
 {% assign entries_by_year = site.entries | sort: 'date' | reverse | group_by_exp: "entry", "entry.date | date: '%Y'" %}
 
 <div class="timeline">
@@ -17,23 +13,19 @@ layout: default
     </div>
     
     {% for entry in year_group.items %}
-    <article class="timeline-item">
-      <div class="timeline-date">
-        <span class="date-month">{{ entry.date | date: "%m月%d日" }}</span>
+    <article class="card">
+      <a href="{{ entry.url | relative_url }}" class="card-link">
+        <div class="card-date">{{ entry.date | date: "%m月%d日" }}</div>
+        <h3 class="card-title">{{ entry.title }}</h3>
+        <p class="card-summary">{{ entry.summary }}</p>
+      </a>
+      {% if entry.tags %}
+      <div class="card-tags">
+        {% for tag in entry.tags %}
+        <a href="{{ '/archive/?tag=' | append: tag | relative_url }}" class="card-tag">{{ tag }}</a>
+        {% endfor %}
       </div>
-      <div class="timeline-content">
-        <h3 class="entry-title">
-          <a href="{{ entry.url | relative_url }}">{{ entry.title }}</a>
-        </h3>
-        <p class="entry-summary">{{ entry.summary }}</p>
-        {% if entry.tags %}
-        <div class="entry-tags">
-          {% for tag in entry.tags %}
-          <span class="tag">{{ tag }}</span>
-          {% endfor %}
-        </div>
-        {% endif %}
-      </div>
+      {% endif %}
     </article>
     {% endfor %}
   </div>
@@ -45,3 +37,4 @@ layout: default
   <p>暂无档案条目</p>
 </div>
 {% endif %}
+</div>
