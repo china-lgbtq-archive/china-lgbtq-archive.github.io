@@ -68,20 +68,10 @@
         } else {
           header.classList.remove('scrolled');
         }
-        
-        // 渐变流动效果
-        if (hero) {
-          const heroHeight = hero.offsetHeight;
-          const scrollY = window.scrollY;
-          const progress = Math.min((scrollY / heroHeight) * 100, 100);
-          hero.style.backgroundPosition = `${progress}% ${progress}%`;
-        }
       }
       
-      // 立即设置状态（无动画）
       checkScroll();
       
-      // 稍后启用过渡动画
       setTimeout(function() {
         header.classList.add('ready');
       }, 50);

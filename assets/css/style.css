@@ -169,16 +169,14 @@ a {
   background: linear-gradient(
     135deg,
     #e8a87c 0%,
-    #f5d89a 14%,
-    #c9e4ca 28%,
-    #7fcdcd 42%,
-    #8bb8e8 56%,
-    #c2a8cf 70%,
-    #e8a87c 84%,
-    #f5d89a 100%
+    #f5d89a 18%,
+    #c9e4ca 35%,
+    #7fcdcd 50%,
+    #8bb8e8 68%,
+    #c2a8cf 85%,
+    #e8a87c 100%
   );
-  background-size: 200% 200%;
-  background-position: 0% 0%;
+  background-attachment: fixed;
   width: 100%;
 }
 
@@ -781,7 +779,11 @@ a {
   }
   
   .archive-table .col-tags {
-    display: none;
+    width: 70px;
+  }
+  
+  .archive-table .col-date {
+    width: 85px;
   }
   
   .filter-row {
