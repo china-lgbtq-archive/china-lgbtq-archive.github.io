@@ -18,9 +18,10 @@ layout: default
       
       {% for entry in year_group.items %}
       <article class="card">
-        <div class="card-date">{{ entry.date | date: "%m月%d日" }}</div>
+        <span class="card-date">{{ entry.date | date: "%m月%d日" }}</span>
         <a href="{{ entry.url | relative_url }}" class="card-link">
           <div class="card-content">
+            <span class="card-date-inner">{{ entry.date | date: "%m月%d日" }}</span>
             <h3 class="card-title">{{ entry.title }}</h3>
             <p class="card-summary">{{ entry.summary }}</p>
             {% if entry.tags %}
