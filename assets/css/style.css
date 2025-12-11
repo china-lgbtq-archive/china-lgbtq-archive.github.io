@@ -176,7 +176,8 @@ a {
     #c2a8cf 85%,
     #e8a87c 100%
   );
-  background-attachment: fixed;
+  background-size: 200% 200%;
+  background-position: 0% 0%;
   width: 100%;
 }
 

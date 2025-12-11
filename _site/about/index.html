@@ -46,12 +46,23 @@
       const header = document.querySelector('.site-header');
       const hero = document.querySelector('.hero-wrapper');
       
+      // 检测是否为移动设备
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+      
       function checkScroll() {
         const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
         if (heroBottom <= 50) {
           header.classList.add('scrolled');
         } else {
           header.classList.remove('scrolled');
+        }
+        
+        // 只在桌面端启用渐变流动效果
+        if (hero && !isMobile) {
+          const heroHeight = hero.offsetHeight;
+          const scrollY = window.scrollY;
+          const progress = Math.min((scrollY / heroHeight) * 100, 100);
+          hero.style.backgroundPosition = `${progress}% ${progress}%`;
         }
       }
       
