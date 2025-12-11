@@ -57,12 +57,14 @@
           header.classList.remove('scrolled');
         }
         
-        // 只在桌面端启用渐变流动效果
-        if (hero && !isMobile) {
+        // 全息流动效果 - 垂直滚动穿越整个色谱
+        if (hero) {
           const heroHeight = hero.offsetHeight;
           const scrollY = window.scrollY;
-          const progress = Math.min((scrollY / heroHeight) * 150, 100);
-          hero.style.backgroundPosition = `0% ${progress}%`;
+          const progress = Math.min(scrollY / heroHeight, 1);
+          // 从底部(100%)到顶部(0%)，穿越所有颜色
+          const posY = 100 - progress * 100;
+          hero.style.backgroundPosition = `0% ${posY}%`;
         }
       }
       

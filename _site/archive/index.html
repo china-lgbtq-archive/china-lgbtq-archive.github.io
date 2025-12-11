@@ -44,12 +44,17 @@
       <div class="filter-group">
         <span class="filter-label">年份</span>
         <div class="filter-tags" id="year-filters">
-          <button class="filter-btn active" data-year="all">全部</button>
           
           
           
           
           <button class="filter-btn" data-year="2025">2025</button>
+          
+          <button class="filter-btn" data-year="2024">2024</button>
+          
+          <button class="filter-btn" data-year="2023">2023</button>
+          
+          <button class="filter-btn" data-year="2022">2022</button>
           
         </div>
       </div>
@@ -57,7 +62,18 @@
       <div class="filter-group">
         <span class="filter-label">标签</span>
         <div class="filter-tags" id="tag-filters">
-          <button class="filter-btn active" data-tag="all">全部</button>
+          
+          
+          
+          <button class="filter-btn" data-tag="china">china</button>
+          
+          
+          
+          <button class="filter-btn" data-tag="gay">gay</button>
+          
+          
+          
+          <button class="filter-btn" data-tag="lesbian">lesbian</button>
           
           
           
@@ -95,6 +111,64 @@
         </td>
       </tr>
       
+      <tr class="archive-row" data-year="2025" data-tags="lgbt" data-title="test" data-summary="从2020年到现在，我陆陆续续写了有将近20万字的文章，这些是直接和性少数整体相关的。我对于性少数运动、政治、社会这些不同的议题都有了不小的变化。如果从时间顺序来看，也许读者能注意到我在观念上的一些微妙的变迁。但是有一点是不怎么变的，那就是我仍然会持续地写下去，而且不仅仅是写下去，还要做更切实的事情。谨以此文辑纪念2025年的5月17日世界不再恐同日。" onclick="window.location='/entries/%E5%BA%8F%E8%A8%80-copy-2/'">
+        <td class="col-date">2025-10-11</td>
+        <td class="col-title">test</td>
+        <td class="col-tags">
+          <div class="tags-wrapper">
+            
+            
+            <a href="/archive/?tag=lgbt" class="archive-tag" onclick="event.stopPropagation()">lgbt</a>
+            
+            
+          </div>
+        </td>
+      </tr>
+      
+      <tr class="archive-row" data-year="2024" data-tags="lgbt" data-title="test 2" data-summary="从2020年到现在，我陆陆续续写了有将近20万字的文章，这些是直接和性少数整体相关的。我对于性少数运动、政治、社会这些不同的议题都有了不小的变化。如果从时间顺序来看，也许读者能注意到我在观念上的一些微妙的变迁。但是有一点是不怎么变的，那就是我仍然会持续地写下去，而且不仅仅是写下去，还要做更切实的事情。谨以此文辑纪念2025年的5月17日世界不再恐同日。" onclick="window.location='/entries/%E5%BA%8F%E8%A8%80-copy/'">
+        <td class="col-date">2024-12-11</td>
+        <td class="col-title">test 2</td>
+        <td class="col-tags">
+          <div class="tags-wrapper">
+            
+            
+            <a href="/archive/?tag=lgbt" class="archive-tag" onclick="event.stopPropagation()">lgbt</a>
+            
+            
+          </div>
+        </td>
+      </tr>
+      
+      <tr class="archive-row" data-year="2023" data-tags="china" data-title="序言" data-summary="从2020年到现在，我陆陆续续写了有将近20万字的文章，这些是直接和性少数整体相关的。我对于性少数运动、政治、社会这些不同的议题都有了不小的变化。如果从时间顺序来看，也许读者能注意到我在观念上的一些微妙的变迁。但是有一点是不怎么变的，那就是我仍然会持续地写下去，而且不仅仅是写下去，还要做更切实的事情。谨以此文辑纪念2025年的5月17日世界不再恐同日。" onclick="window.location='/entries/%E5%BA%8F%E8%A8%80-copy-4/'">
+        <td class="col-date">2023-12-11</td>
+        <td class="col-title">序言</td>
+        <td class="col-tags">
+          <div class="tags-wrapper">
+            
+            
+            <a href="/archive/?tag=china" class="archive-tag" onclick="event.stopPropagation()">china</a>
+            
+            
+          </div>
+        </td>
+      </tr>
+      
+      <tr class="archive-row" data-year="2022" data-tags="gay,lesbian" data-title="序言" data-summary="从2020年到现在，我陆陆续续写了有将近20万字的文章，这些是直接和性少数整体相关的。我对于性少数运动、政治、社会这些不同的议题都有了不小的变化。如果从时间顺序来看，也许读者能注意到我在观念上的一些微妙的变迁。但是有一点是不怎么变的，那就是我仍然会持续地写下去，而且不仅仅是写下去，还要做更切实的事情。谨以此文辑纪念2025年的5月17日世界不再恐同日。" onclick="window.location='/entries/%E5%BA%8F%E8%A8%80-copy-3/'">
+        <td class="col-date">2022-12-11</td>
+        <td class="col-title">序言</td>
+        <td class="col-tags">
+          <div class="tags-wrapper">
+            
+            
+            <a href="/archive/?tag=gay" class="archive-tag" onclick="event.stopPropagation()">gay</a>
+            
+            <a href="/archive/?tag=lesbian" class="archive-tag" onclick="event.stopPropagation()">lesbian</a>
+            
+            
+          </div>
+        </td>
+      </tr>
+      
     </tbody>
   </table>
   
@@ -112,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const rows = document.querySelectorAll('.archive-row');
   const noResults = document.getElementById('no-results');
   
-  let currentYear = 'all';
-  let currentTag = 'all';
+  let currentYear = null;
+  let currentTag = null;
   let currentSearch = '';
   
   function filterItems() {
@@ -125,8 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const summary = row.dataset.summary.toLowerCase();
       const tags = row.dataset.tags.toLowerCase();
       
-      const matchYear = currentYear === 'all' || year === currentYear;
-      const matchTag = currentTag === 'all' || tags.includes(currentTag.toLowerCase());
+      const matchYear = !currentYear || year === currentYear;
+      const matchTag = !currentTag || tags.includes(currentTag.toLowerCase());
       const matchSearch = currentSearch === '' || 
         title.includes(currentSearch) || 
         summary.includes(currentSearch) ||
@@ -146,8 +220,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function updateURL() {
     const params = new URLSearchParams();
-    if (currentYear !== 'all') params.set('year', currentYear);
-    if (currentTag !== 'all') params.set('tag', currentTag);
+    if (currentYear) params.set('year', currentYear);
+    if (currentTag) params.set('tag', currentTag);
     if (currentSearch) params.set('q', currentSearch);
     
     const newURL = params.toString() 
@@ -162,14 +236,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (params.has('year')) {
       currentYear = params.get('year');
       yearBtns.forEach(b => {
-        b.classList.toggle('active', b.dataset.year === currentYear);
+        if (b.dataset.year === currentYear) b.classList.add('active');
       });
     }
     
     if (params.has('tag')) {
       currentTag = params.get('tag');
       tagBtns.forEach(b => {
-        b.classList.toggle('active', b.dataset.tag === currentTag);
+        if (b.dataset.tag.toLowerCase() === currentTag.toLowerCase()) b.classList.add('active');
       });
     }
     
@@ -181,20 +255,42 @@ document.addEventListener('DOMContentLoaded', function() {
     filterItems();
   }
   
+  // 年份按钮：单选 toggle
   yearBtns.forEach(btn => {
     btn.addEventListener('click', function() {
-      yearBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      currentYear = this.dataset.year;
+      const year = this.dataset.year;
+      
+      if (currentYear === year) {
+        // 已选中，取消选择
+        currentYear = null;
+        this.classList.remove('active');
+      } else {
+        // 选择新的，取消其他
+        yearBtns.forEach(b => b.classList.remove('active'));
+        currentYear = year;
+        this.classList.add('active');
+      }
+      
       filterItems();
     });
   });
   
+  // 标签按钮：单选 toggle
   tagBtns.forEach(btn => {
     btn.addEventListener('click', function() {
-      tagBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      currentTag = this.dataset.tag;
+      const tag = this.dataset.tag;
+      
+      if (currentTag === tag.toLowerCase()) {
+        // 已选中，取消选择
+        currentTag = null;
+        this.classList.remove('active');
+      } else {
+        // 选择新的，取消其他
+        tagBtns.forEach(b => b.classList.remove('active'));
+        currentTag = tag.toLowerCase();
+        this.classList.add('active');
+      }
+      
       filterItems();
     });
   });
@@ -231,12 +327,14 @@ document.addEventListener('DOMContentLoaded', function() {
           header.classList.remove('scrolled');
         }
         
-        // 只在桌面端启用渐变流动效果
-        if (hero && !isMobile) {
+        // 全息流动效果 - 垂直滚动穿越整个色谱
+        if (hero) {
           const heroHeight = hero.offsetHeight;
           const scrollY = window.scrollY;
-          const progress = Math.min((scrollY / heroHeight) * 150, 100);
-          hero.style.backgroundPosition = `0% ${progress}%`;
+          const progress = Math.min(scrollY / heroHeight, 1);
+          // 从底部(100%)到顶部(0%)，穿越所有颜色
+          const posY = 100 - progress * 100;
+          hero.style.backgroundPosition = `0% ${posY}%`;
         }
       }
       

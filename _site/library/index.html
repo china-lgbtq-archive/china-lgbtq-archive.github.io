@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.layout == 'home' %}{{ site.title }}{% elsif page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <title>文库 | 中国性少数历史档案</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
@@ -14,46 +14,38 @@
   <header class="site-header">
     <nav class="nav-container">
       <div class="nav-links">
-        <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>首页</a>
-        <a href="{{ '/archive' | relative_url }}" {% if page.url == '/archive/' %}class="active"{% endif %}>档案库</a>
-        <a href="{{ '/about' | relative_url }}" {% if page.url == '/about/' %}class="active"{% endif %}>关于</a>
+        <a href="/" >首页</a>
+        <a href="/archive" >档案库</a>
+        <a href="/about" >关于</a>
       </div>
     </nav>
   </header>
 
   <div class="hero-wrapper">
-    {% if page.layout == 'entry' %}
-    <a href="javascript:history.back()" class="hero-back-btn" title="返回">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    </a>
-    {% endif %}
+    
     <section class="hero">
       <div class="hero-content">
-        {% if page.layout == 'home' %}
-        <h1>{{ site.title }}</h1>
-        {% elsif page.layout == 'entry' %}
-        <p class="hero-date">{{ page.date | date: "%Y年%m月%d日" }}</p>
-        <h1>{{ page.title }}</h1>
-        {% if page.tags %}
-        <div class="hero-tags">
-          {% for tag in page.tags %}
-          <a href="{{ '/archive/?tag=' | append: tag | relative_url }}" class="hero-tag">{{ tag }}</a>
-          {% endfor %}
-        </div>
-        {% endif %}
-        {% else %}
-        <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-        {% endif %}
+        
+        <h1>文库</h1>
+        
       </div>
     </section>
   </div>
 
   <main class="main-content">
-    {{ content }}
+    <div class="page-content">
+  <h1>文库</h1>
+  <p class="page-intro">专题文章与深度研究</p>
+  
+  <div class="coming-soon">
+    <p>内容建设中...</p>
+  </div>
+</div>
+
   </main>
 
   <footer class="site-footer">
-    <p>© 2025 {{ site.title }}</p>
+    <p>© 2025 中国性少数历史档案</p>
   </footer>
 
   <script>

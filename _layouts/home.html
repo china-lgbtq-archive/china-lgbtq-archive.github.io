@@ -3,38 +3,97 @@ layout: default
 ---
 
 <div class="timeline-section">
-{% assign entries_by_year = site.entries | sort: 'date' | reverse | group_by_exp: "entry", "entry.date | date: '%Y'" %}
+{% assign featured_entries = site.entries | where: "featured", true %}
+{% assign entries_by_year = featured_entries | sort: 'date' | reverse | group_by_exp: "entry", "entry.date | date: '%Y'" %}
 
-<div class="timeline">
-  {% for year_group in entries_by_year %}
-  <div class="year-section">
-    <div class="year-marker">
-      <span class="year-label">{{ year_group.name }}</span>
-    </div>
+<div class="timeline-container">
+  <div class="timeline" id="timeline">
+    <!-- 时间线填充进度 -->
+    <div class="timeline-progress" id="timeline-progress"></div>
     
-    {% for entry in year_group.items %}
-    <article class="card">
-      <a href="{{ entry.url | relative_url }}" class="card-link">
+    {% for year_group in entries_by_year %}
+    <div class="year-section" data-year="{{ year_group.name }}">
+      <span class="year-label">{{ year_group.name }}</span>
+      <div class="year-marker"></div>
+      
+      {% for entry in year_group.items %}
+      <article class="card">
         <div class="card-date">{{ entry.date | date: "%m月%d日" }}</div>
-        <h3 class="card-title">{{ entry.title }}</h3>
-        <p class="card-summary">{{ entry.summary }}</p>
-      </a>
-      {% if entry.tags %}
-      <div class="card-tags">
-        {% for tag in entry.tags %}
-        <a href="{{ '/archive/?tag=' | append: tag | relative_url }}" class="card-tag">{{ tag }}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </article>
+        <a href="{{ entry.url | relative_url }}" class="card-link">
+          <div class="card-content">
+            <h3 class="card-title">{{ entry.title }}</h3>
+            <p class="card-summary">{{ entry.summary }}</p>
+            {% if entry.tags %}
+            <div class="card-tags">
+              {% for tag in entry.tags %}
+              <span class="card-tag" data-tag="{{ tag }}">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
     {% endfor %}
   </div>
-  {% endfor %}
 </div>
 
-{% if site.entries.size == 0 %}
+{% if featured_entries.size == 0 %}
 <div class="empty-state">
-  <p>暂无档案条目</p>
+  <p>暂无精选档案条目</p>
 </div>
 {% endif %}
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const timeline = document.getElementById('timeline');
+  const timelineProgress = document.getElementById('timeline-progress');
+  const yearMarkers = document.querySelectorAll('.year-marker');
+  const cards = document.querySelectorAll('.card');
+  
+  // 标签点击跳转
+  document.querySelectorAll('.card-tag').forEach(tag => {
+    tag.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.href = '/archive/?tag=' + this.dataset.tag;
+    });
+  });
+  
+  function updateTimeline() {
+    const timelineRect = timeline.getBoundingClientRect();
+    const trigger = window.innerHeight * 0.5;
+    
+    // 计算时间线填充进度
+    const scrolledIntoTimeline = Math.max(0, -timelineRect.top + trigger);
+    const progressHeight = Math.min(scrolledIntoTimeline, timelineRect.height);
+    timelineProgress.style.height = progressHeight + 'px';
+    
+    // 更新年份圆点填充
+    yearMarkers.forEach(marker => {
+      const rect = marker.getBoundingClientRect();
+      if (rect.top + 25 <= trigger) {
+        marker.classList.add('filled');
+      } else {
+        marker.classList.remove('filled');
+      }
+    });
+    
+    // 更新卡片圆点填充
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top + 32 <= trigger) {
+        card.classList.add('filled');
+      } else {
+        card.classList.remove('filled');
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', updateTimeline);
+  window.addEventListener('resize', updateTimeline);
+  updateTimeline();
+});
+</script>

@@ -15,7 +15,6 @@ permalink: /archive/
       <div class="filter-group">
         <span class="filter-label">年份</span>
         <div class="filter-tags" id="year-filters">
-          <button class="filter-btn active" data-year="all">全部</button>
           {% assign all_years = "" | split: "" %}
           {% for entry in site.entries %}
             {% assign entry_year = entry.date | date: '%Y' %}
@@ -33,7 +32,6 @@ permalink: /archive/
       <div class="filter-group">
         <span class="filter-label">标签</span>
         <div class="filter-tags" id="tag-filters">
-          <button class="filter-btn active" data-tag="all">全部</button>
           {% assign all_tags = site.entries | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
           {% for tag in all_tags %}
           {% if tag != '' %}
@@ -88,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const rows = document.querySelectorAll('.archive-row');
   const noResults = document.getElementById('no-results');
   
-  let currentYear = 'all';
-  let currentTag = 'all';
+  let currentYear = null;
+  let currentTag = null;
   let currentSearch = '';
   
   function filterItems() {
@@ -101,8 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const summary = row.dataset.summary.toLowerCase();
       const tags = row.dataset.tags.toLowerCase();
       
-      const matchYear = currentYear === 'all' || year === currentYear;
-      const matchTag = currentTag === 'all' || tags.includes(currentTag.toLowerCase());
+      const matchYear = !currentYear || year === currentYear;
+      const matchTag = !currentTag || tags.includes(currentTag.toLowerCase());
       const matchSearch = currentSearch === '' || 
         title.includes(currentSearch) || 
         summary.includes(currentSearch) ||
@@ -122,8 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function updateURL() {
     const params = new URLSearchParams();
-    if (currentYear !== 'all') params.set('year', currentYear);
-    if (currentTag !== 'all') params.set('tag', currentTag);
+    if (currentYear) params.set('year', currentYear);
+    if (currentTag) params.set('tag', currentTag);
     if (currentSearch) params.set('q', currentSearch);
     
     const newURL = params.toString() 
@@ -138,14 +136,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (params.has('year')) {
       currentYear = params.get('year');
       yearBtns.forEach(b => {
-        b.classList.toggle('active', b.dataset.year === currentYear);
+        if (b.dataset.year === currentYear) b.classList.add('active');
       });
     }
     
     if (params.has('tag')) {
       currentTag = params.get('tag');
       tagBtns.forEach(b => {
-        b.classList.toggle('active', b.dataset.tag === currentTag);
+        if (b.dataset.tag.toLowerCase() === currentTag.toLowerCase()) b.classList.add('active');
       });
     }
     
@@ -157,20 +155,42 @@ document.addEventListener('DOMContentLoaded', function() {
     filterItems();
   }
   
+  // 年份按钮：单选 toggle
   yearBtns.forEach(btn => {
     btn.addEventListener('click', function() {
-      yearBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      currentYear = this.dataset.year;
+      const year = this.dataset.year;
+      
+      if (currentYear === year) {
+        // 已选中，取消选择
+        currentYear = null;
+        this.classList.remove('active');
+      } else {
+        // 选择新的，取消其他
+        yearBtns.forEach(b => b.classList.remove('active'));
+        currentYear = year;
+        this.classList.add('active');
+      }
+      
       filterItems();
     });
   });
   
+  // 标签按钮：单选 toggle
   tagBtns.forEach(btn => {
     btn.addEventListener('click', function() {
-      tagBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      currentTag = this.dataset.tag;
+      const tag = this.dataset.tag;
+      
+      if (currentTag === tag.toLowerCase()) {
+        // 已选中，取消选择
+        currentTag = null;
+        this.classList.remove('active');
+      } else {
+        // 选择新的，取消其他
+        tagBtns.forEach(b => b.classList.remove('active'));
+        currentTag = tag.toLowerCase();
+        this.classList.add('active');
+      }
+      
       filterItems();
     });
   });

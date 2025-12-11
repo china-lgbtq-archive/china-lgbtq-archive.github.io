@@ -168,20 +168,23 @@ a {
 /* ===== Hero 包裹层（导航 + 标题一体） ===== */
 .hero-wrapper {
   position: relative;
-  background: linear-gradient(
-    135deg,
-    #e8a87c 0%,
-    #f5d89a 12%,
-    #c9e4ca 24%,
-    #7fcdcd 36%,
-    #8bb8e8 48%,
-    #c2a8cf 60%,
-    #e8a87c 72%,
-    #f5d89a 84%,
-    #c9e4ca 100%
-  );
-  background-size: 100% 200%;
-  background-position: 0% 0%;
+  background: 
+    linear-gradient(
+      135deg,
+      #e8a87c 0%,
+      #f5d89a 10%,
+      #c9e4ca 20%,
+      #7fcdcd 30%,
+      #8bb8e8 40%,
+      #c2a8cf 50%,
+      #e8a87c 60%,
+      #f5d89a 70%,
+      #c9e4ca 80%,
+      #7fcdcd 90%,
+      #8bb8e8 100%
+    );
+  background-size: 100% 400%;
+  background-position: 0% 100%;
   width: 100%;
 }
 
@@ -304,57 +307,94 @@ a {
 }
 
 /* ===== 时间线 ===== */
+.timeline-container {
+  position: relative;
+}
+
+/* 固定跟随的年份 - 不再使用 */
+.sticky-year,
+.sticky-label {
+  display: none;
+}
+
 .timeline {
   position: relative;
-  padding-left: 2rem;
+  padding-left: 140px;
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 120px;
   top: 0;
   bottom: 0;
   width: 2px;
   background: var(--color-timeline);
 }
 
+/* 时间线填充进度 */
+.timeline-progress {
+  position: absolute;
+  left: 120px;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: var(--color-text);
+  z-index: 1;
+}
+
 /* 年份标记 */
 .year-section {
   margin-bottom: var(--space-xl);
+  position: relative;
 }
 
 .year-marker {
   position: relative;
-  margin-bottom: var(--space-lg);
-  margin-left: -2rem;
-  padding-left: 2rem;
+  height: 50px;
+  margin-bottom: var(--space-md);
 }
 
 .year-marker::before {
   content: '';
   position: absolute;
-  left: -4px;
+  left: -20px;
   top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  background: var(--color-text);
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: var(--color-bg);
+  border: 3px solid var(--color-timeline);
   border-radius: 50%;
+  z-index: 2;
+  transition: all 0.3s;
 }
 
+.year-marker.filled::before {
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+/* 年份标签 - 使用 sticky 定位 */
 .year-label {
+  position: sticky;
+  top: calc(50vh - 1rem);
+  float: left;
+  margin-left: -220px;
+  margin-bottom: -2rem;
+  width: 100px;
+  text-align: right;
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-text);
+  white-space: nowrap;
 }
 
 /* 卡片样式 */
 .card {
   position: relative;
   display: block;
-  padding: var(--space-lg);
   margin-bottom: var(--space-md);
   background: #fff;
   border: 1px solid var(--color-border);
@@ -365,25 +405,31 @@ a {
 .card::before {
   content: '';
   position: absolute;
-  left: -2rem;
-  top: 1.5rem;
-  width: 8px;
-  height: 8px;
+  left: -20px;
+  top: 32px;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
   background: var(--color-bg);
   border: 2px solid var(--color-timeline);
   border-radius: 50%;
-  transform: translateX(-3px);
-  transition: all 0.2s;
+  z-index: 2;
+  transition: all 0.3s;
 }
 
-.card:hover {
+.card.filled::before {
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.card.filled {
   border-color: var(--color-text-secondary);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.card:hover::before {
-  background: var(--color-text);
+.card:hover {
   border-color: var(--color-text);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 }
 
 .card-link {
@@ -393,9 +439,17 @@ a {
 }
 
 .card-date {
-  font-size: 0.8125rem;
+  position: absolute;
+  right: calc(100% + 35px);
+  top: 28px;
+  font-size: 1rem;
+  font-weight: 500;
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-xs);
+  white-space: nowrap;
+}
+
+.card-content {
+  padding: var(--space-lg);
 }
 
 .card-title {
@@ -426,7 +480,7 @@ a {
   background: var(--color-accent-light);
   color: var(--color-accent);
   border-radius: 2px;
-  text-decoration: none;
+  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -636,11 +690,16 @@ a {
 
 .archive-row {
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
 .archive-row:hover {
-  background: #fafafa;
+  background: var(--color-card-hover);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.archive-row:hover .col-title {
+  color: var(--color-text);
 }
 
 .archive-row td {
@@ -747,6 +806,27 @@ a {
 }
 
 /* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 100px;
+  }
+  
+  .timeline::before,
+  .timeline-progress {
+    left: 80px;
+  }
+  
+  .year-label {
+    margin-left: -160px;
+    font-size: 1.5rem;
+  }
+  
+  .card-date {
+    right: calc(100% + 25px);
+    font-size: 0.875rem;
+  }
+}
+
 @media (max-width: 640px) {
   .nav-container {
     flex-direction: column;
@@ -763,19 +843,48 @@ a {
   }
   
   .timeline {
-    padding-left: 1.5rem;
+    padding-left: var(--space-lg);
+  }
+  
+  .timeline::before,
+  .timeline-progress {
+    left: 0;
   }
   
   .year-marker {
-    margin-left: -1.5rem;
-    padding-left: 1.5rem;
+    height: auto;
+    margin-bottom: var(--space-md);
+  }
+  
+  .year-marker::before {
+    left: -16px;
+    width: 10px;
+    height: 10px;
+  }
+  
+  .year-label {
+    position: static;
+    float: none;
+    margin-left: 0;
+    width: auto;
+    text-align: left;
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
   }
   
   .card::before {
-    left: -1.5rem;
+    left: -16px;
+    width: 8px;
+    height: 8px;
   }
   
-  .card {
+  .card-date {
+    position: static;
+    margin-bottom: var(--space-xs);
+    font-size: 0.875rem;
+  }
+  
+  .card-content {
     padding: var(--space-md);
   }
   
