@@ -1,0 +1,30 @@
+# 站点设置
+title: 中国LGBTQ历史档案
+description: 记录中国LGBTQ群体的历史与记忆
+url: "https://china-lgbtq-archive.github.io"
+baseurl: ""
+
+# 构建设置
+markdown: kramdown
+permalink: /entries/:slug/
+
+# 集合设置
+collections:
+  entries:
+    output: true
+    permalink: /entries/:slug/
+
+# 默认值
+defaults:
+  - scope:
+      path: ""
+      type: "entries"
+    values:
+      layout: "entry"
+
+# 排除文件
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
