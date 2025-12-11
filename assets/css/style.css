@@ -169,14 +169,16 @@ a {
   background: linear-gradient(
     135deg,
     #e8a87c 0%,
-    #f5d89a 18%,
-    #c9e4ca 35%,
-    #7fcdcd 50%,
-    #8bb8e8 68%,
-    #c2a8cf 85%,
-    #e8a87c 100%
+    #f5d89a 12%,
+    #c9e4ca 24%,
+    #7fcdcd 36%,
+    #8bb8e8 48%,
+    #c2a8cf 60%,
+    #e8a87c 72%,
+    #f5d89a 84%,
+    #c9e4ca 100%
   );
-  background-size: 400% 400%;
+  background-size: 100% 200%;
   background-position: 0% 0%;
   width: 100%;
 }

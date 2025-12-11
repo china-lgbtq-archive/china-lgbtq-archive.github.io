@@ -122,8 +122,8 @@
         if (hero && !isMobile) {
           const heroHeight = hero.offsetHeight;
           const scrollY = window.scrollY;
-          const progress = Math.min((scrollY / heroHeight) * 100, 100);
-          hero.style.backgroundPosition = `${progress}% ${progress}%`;
+          const progress = Math.min((scrollY / heroHeight) * 150, 100);
+          hero.style.backgroundPosition = `0% ${progress}%`;
         }
       }
       
