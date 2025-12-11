@@ -74,7 +74,6 @@ a {
   right: 0;
   z-index: 100;
   background: transparent;
-  transition: all 0.3s ease;
 }
 
 .site-header.scrolled {
@@ -96,6 +95,15 @@ a {
 
 .site-header.scrolled .nav-links a::after {
   background: var(--color-text);
+}
+
+/* 启用过渡动画 */
+.site-header.ready {
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.site-header.ready .nav-links a {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .nav-container {

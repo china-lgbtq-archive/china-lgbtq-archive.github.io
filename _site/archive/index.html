@@ -216,28 +216,37 @@ document.addEventListener('DOMContentLoaded', function() {
   </footer>
 
   <script>
-    const header = document.querySelector('.site-header');
-    const hero = document.querySelector('.hero-wrapper');
-    
-    function checkScroll() {
-      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
-      if (heroBottom <= 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
+    (function() {
+      const header = document.querySelector('.site-header');
+      const hero = document.querySelector('.hero-wrapper');
+      
+      function checkScroll() {
+        const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+        if (heroBottom <= 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        
+        // 渐变流动效果
+        if (hero) {
+          const heroHeight = hero.offsetHeight;
+          const scrollY = window.scrollY;
+          const progress = Math.min((scrollY / heroHeight) * 100, 100);
+          hero.style.backgroundPosition = `${progress}% ${progress}%`;
+        }
       }
       
-      // 渐变流动效果 - hero 滑完时刚好变完
-      if (hero) {
-        const heroHeight = hero.offsetHeight;
-        const scrollY = window.scrollY;
-        const progress = Math.min((scrollY / heroHeight) * 100, 100);
-        hero.style.backgroundPosition = `${progress}% ${progress}%`;
-      }
-    }
-    
-    window.addEventListener('scroll', checkScroll);
-    checkScroll();
+      // 立即设置状态（无动画）
+      checkScroll();
+      
+      // 稍后启用过渡动画
+      setTimeout(function() {
+        header.classList.add('ready');
+      }, 50);
+      
+      window.addEventListener('scroll', checkScroll);
+    })();
   </script>
 </body>
 </html>
