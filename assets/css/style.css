@@ -30,6 +30,7 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   overflow-y: scroll;
+  overscroll-behavior: none;
 }
 
 /* 自定义滚动条 */
@@ -59,6 +60,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overscroll-behavior: none;
 }
 
 a {
