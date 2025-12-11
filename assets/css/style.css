@@ -124,7 +124,47 @@ a {
 
 .nav-links {
   display: flex;
-  gap: var(--space-xl);
+  gap: var(--space-lg);
+}
+
+/* 汉堡菜单按钮 */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 101;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.site-header.scrolled .nav-toggle span {
+  background: var(--color-text);
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 .nav-links a {
@@ -777,6 +817,57 @@ a {
   color: var(--color-text-secondary);
 }
 
+/* ===== 页面内容通用样式 ===== */
+.page-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-content h1 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.page-intro {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.coming-soon {
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--color-text-secondary);
+  background: var(--color-accent-light);
+  border-radius: 8px;
+}
+
+/* 参与页面 */
+.contribute-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.contribute-section {
+  padding: var(--space-lg);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.contribute-section h2 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.contribute-section p {
+  color: var(--color-text-secondary);
+}
+
 /* ===== 关于页面 ===== */
 .about-page h1 {
   font-family: var(--font-serif);
@@ -828,9 +919,61 @@ a {
 }
 
 @media (max-width: 640px) {
+  /* 移动端导航 */
   .nav-container {
+    justify-content: flex-end;
+    padding: var(--space-md);
+  }
+  
+  .nav-toggle {
+    display: flex;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     flex-direction: column;
-    gap: var(--space-md);
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-lg);
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-links a {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: none;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #fff;
+  }
+  
+  .site-header.scrolled .nav-links {
+    background: rgba(0, 0, 0, 0.92);
+  }
+  
+  .site-header.scrolled .nav-links a {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .site-header.scrolled .nav-links a:hover,
+  .site-header.scrolled .nav-links a.active {
+    color: #fff;
   }
   
   .hero h1 {
@@ -866,10 +1009,10 @@ a {
     position: static;
     float: none;
     margin-left: 0;
+    margin-bottom: 0;
     width: auto;
     text-align: left;
     font-size: 1.25rem;
-    margin-bottom: var(--space-sm);
   }
   
   .card::before {

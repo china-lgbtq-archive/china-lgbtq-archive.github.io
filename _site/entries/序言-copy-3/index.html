@@ -13,9 +13,18 @@
 <body>
   <header class="site-header">
     <nav class="nav-container">
+      <!-- 汉堡菜单按钮 -->
+      <button class="nav-toggle" aria-label="打开菜单">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
       <div class="nav-links">
         <a href="/" >首页</a>
         <a href="/archive" >档案库</a>
+        <a href="/library" >文库</a>
+        <a href="/contribute" >参与</a>
         <a href="/about" >关于</a>
       </div>
     </nav>
@@ -108,9 +117,22 @@
     (function() {
       const header = document.querySelector('.site-header');
       const hero = document.querySelector('.hero-wrapper');
+      const navToggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
       
-      // 检测是否为移动设备
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+      // 汉堡菜单切换
+      navToggle.addEventListener('click', function() {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+      
+      // 点击链接后关闭菜单
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
       
       function checkScroll() {
         const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
@@ -120,12 +142,11 @@
           header.classList.remove('scrolled');
         }
         
-        // 全息流动效果 - 垂直滚动穿越整个色谱
+        // 全息流动效果
         if (hero) {
           const heroHeight = hero.offsetHeight;
           const scrollY = window.scrollY;
           const progress = Math.min(scrollY / heroHeight, 1);
-          // 从底部(100%)到顶部(0%)，穿越所有颜色
           const posY = 100 - progress * 100;
           hero.style.backgroundPosition = `0% ${posY}%`;
         }
