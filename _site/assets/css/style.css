@@ -30,7 +30,26 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   overflow-y: scroll;
+  overflow-x: hidden;
   overscroll-behavior: none;
+  background: 
+    linear-gradient(
+      135deg,
+      #7fcdcd 0%,
+      #8bb8e8 10%,
+      #c2a8cf 20%,
+      #e8a87c 30%,
+      #f5d89a 40%,
+      #c9e4ca 50%,
+      #7fcdcd 60%,
+      #8bb8e8 70%,
+      #c2a8cf 80%,
+      #e8a87c 90%,
+      #f5d89a 100%
+    );
+  background-size: 150vw 200vh;
+  background-position: -10vw var(--bg-pos-y, 100%);
+  background-attachment: fixed;
 }
 
 /* 自定义滚动条 */
@@ -56,11 +75,22 @@ body {
   font-weight: 400;
   line-height: 1.8;
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background: transparent;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   overscroll-behavior: none;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1000;
 }
 
 a {
@@ -75,37 +105,41 @@ a {
   left: 0;
   right: 0;
   z-index: 100;
-  background: transparent;
 }
 
-.site-header.scrolled {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(
+      135deg,
+      #7fcdcd 0%,
+      #8bb8e8 10%,
+      #c2a8cf 20%,
+      #e8a87c 30%,
+      #f5d89a 40%,
+      #c9e4ca 50%,
+      #7fcdcd 60%,
+      #8bb8e8 70%,
+      #c2a8cf 80%,
+      #e8a87c 90%,
+      #f5d89a 100%
+    );
+  background-size: 150vw 200vh;
+  background-position: -10vw var(--bg-pos-y, 100%);
+  background-attachment: fixed;
+  opacity: var(--header-opacity, 0);
+  pointer-events: none;
+  z-index: -2;
 }
 
-.site-header.scrolled .nav-links a {
-  color: var(--color-text-secondary);
-  text-shadow: none;
+.site-header::after {
+  display: none;
 }
 
-.site-header.scrolled .nav-links a:hover,
-.site-header.scrolled .nav-links a.active {
-  color: var(--color-text);
-}
-
-.site-header.scrolled .nav-links a::after {
-  background: var(--color-text);
-}
-
-/* 启用过渡动画 */
-.site-header.ready {
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.site-header.ready .nav-links a {
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+.header-noise {
+  display: none;
 }
 
 .nav-container {
@@ -116,6 +150,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .site-title {
@@ -151,10 +186,6 @@ a {
   transition: all 0.3s ease;
 }
 
-.site-header.scrolled .nav-toggle span {
-  background: var(--color-text);
-}
-
 /* 菜单打开时始终用白色 */
 .nav-toggle.active span {
   background: #fff;
@@ -175,8 +206,8 @@ a {
 .nav-links a {
   font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   position: relative;
   padding: 0.25rem 0;
   transition: all 0.3s ease;
@@ -213,58 +244,16 @@ a {
 /* ===== Hero 包裹层（导航 + 标题一体） ===== */
 .hero-wrapper {
   position: relative;
-  background: 
-    linear-gradient(
-      135deg,
-      #e8a87c 0%,
-      #f5d89a 10%,
-      #c9e4ca 20%,
-      #7fcdcd 30%,
-      #8bb8e8 40%,
-      #c2a8cf 50%,
-      #e8a87c 60%,
-      #f5d89a 70%,
-      #c9e4ca 80%,
-      #7fcdcd 90%,
-      #8bb8e8 100%
-    );
-  background-size: 100% 400%;
-  background-position: 0% 100%;
+  background: transparent;
   width: 100%;
 }
 
-/* 返回按钮 */
-.hero-back-btn {
-  position: absolute;
-  top: 200px;
-  left: calc(50% - 350px);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 50%;
-  color: #fff;
-  transition: all 0.2s;
-}
-
-.hero-back-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-  transform: translateX(-2px);
-}
-
 .hero-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.35;
-  mix-blend-mode: overlay;
-  pointer-events: none;
+  display: none;
+}
+
+.hero-wrapper::after {
+  display: none;
 }
 
 /* ===== Hero 区域 ===== */
@@ -285,6 +274,29 @@ a {
   margin: 0 auto;
 }
 
+/* 返回按钮 - 对齐下方文章内容左边界 */
+.hero-back-btn {
+  position: absolute;
+  top: 30%;
+  left: max(var(--space-lg), calc(50% - 400px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  color: #fff;
+  transition: background 0.2s;
+  z-index: 50;
+}
+
+.hero-back-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
 .hero-date {
   font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.8);
@@ -297,7 +309,7 @@ a {
   font-size: 3.25rem;
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
   margin-bottom: 0;
   letter-spacing: 0.08em;
 }
@@ -341,6 +353,11 @@ a {
 .main-content {
   flex: 1;
   width: 100%;
+  background: var(--color-bg);
+  padding-top: var(--space-xl);
+}
+
+.main-content > * {
   max-width: 900px;
   margin: 0 auto;
   padding: var(--space-xl) var(--space-lg);
@@ -904,27 +921,57 @@ a {
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
   border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 
 /* ===== 响应式 ===== */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
+  /* 时间线布局调整 - 年份不再浮动在左侧 */
   .timeline {
-    padding-left: 100px;
+    padding-left: 28px;
   }
   
   .timeline::before,
   .timeline-progress {
-    left: 80px;
+    left: 8px;
+  }
+  
+  .year-marker {
+    height: auto;
+    margin-bottom: var(--space-md);
+  }
+  
+  .year-marker::before {
+    left: -20px;
+    width: 10px;
+    height: 10px;
   }
   
   .year-label {
-    margin-left: -160px;
+    position: static;
+    float: none;
+    margin-left: 0;
+    margin-bottom: var(--space-sm);
+    width: auto;
+    text-align: left;
     font-size: 1.5rem;
   }
   
+  .card::before {
+    left: -20px;
+    width: 8px;
+    height: 8px;
+  }
+  
   .card-date {
-    right: calc(100% + 25px);
-    font-size: 0.875rem;
+    display: none;
+  }
+  
+  .card-date-inner {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-sm);
   }
 }
 
@@ -945,16 +992,12 @@ a {
     background: rgba(255, 255, 255, 0.95);
   }
   
-  .site-header.scrolled .nav-toggle span {
-    background: var(--color-text);
-  }
-  
   .nav-toggle.active span {
     background: #fff !important;
   }
   
   .nav-links {
-    display: flex;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -967,17 +1010,11 @@ a {
     align-items: center;
     gap: var(--space-lg);
     background: #000;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 100;
   }
   
   .nav-links.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    display: flex;
   }
   
   .nav-links a,
@@ -1010,55 +1047,12 @@ a {
   }
   
   .hero-back-btn {
-    left: var(--space-md);
-    top: 80px;
+    left: var(--space-lg);
   }
   
-  .timeline {
+  .main-content > * {
     padding-left: var(--space-lg);
-  }
-  
-  .timeline::before,
-  .timeline-progress {
-    left: 0;
-  }
-  
-  .year-marker {
-    height: auto;
-    margin-bottom: var(--space-md);
-  }
-  
-  .year-marker::before {
-    left: -16px;
-    width: 10px;
-    height: 10px;
-  }
-  
-  .year-label {
-    position: static;
-    float: none;
-    margin-left: 0;
-    margin-bottom: 0;
-    width: auto;
-    text-align: left;
-    font-size: 1.25rem;
-  }
-  
-  .card::before {
-    left: -16px;
-    width: 8px;
-    height: 8px;
-  }
-  
-  .card-date {
-    display: none;
-  }
-  
-  .card-date-inner {
-    display: block;
-    font-size: 0.8125rem;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-sm);
+    padding-right: var(--space-md);
   }
   
   .card-content {
