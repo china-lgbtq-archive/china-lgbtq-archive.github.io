@@ -72,10 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressHeight = Math.min(scrolledIntoTimeline, timelineRect.height);
     timelineProgress.style.height = progressHeight + 'px';
     
-    // 更新年份圆点填充
+    // 更新年份圆点填充 - 当圆点到达进度线位置时变黑
     yearMarkers.forEach(marker => {
       const rect = marker.getBoundingClientRect();
-      if (rect.top <= trigger) {
+      const markerCenter = rect.top + rect.height / 2;
+      if (markerCenter <= trigger) {
         marker.classList.add('filled');
       } else {
         marker.classList.remove('filled');

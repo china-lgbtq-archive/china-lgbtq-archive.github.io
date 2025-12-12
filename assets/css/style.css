@@ -107,6 +107,11 @@ a {
   z-index: 100;
 }
 
+.site-header.scrolled {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
 .site-header::before {
   content: '';
   position: absolute;
@@ -159,7 +164,7 @@ a {
 
 .nav-links {
   display: flex;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
 /* 汉堡菜单按钮 */
@@ -204,7 +209,7 @@ a {
 }
 
 .nav-links a {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 500;
   color: #fff;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -219,7 +224,7 @@ a {
   bottom: 0;
   left: 50%;
   width: 0;
-  height: 1px;
+  height: 2px;
   background: rgba(255, 255, 255, 0.9);
   transition: all 0.3s ease;
   transform: translateX(-50%);
@@ -268,10 +273,26 @@ a {
   padding-top: calc(var(--space-xl) + 60px);
 }
 
+.hero-blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  backdrop-filter: blur(calc(var(--hero-blur, 0) * 1px));
+  -webkit-backdrop-filter: blur(calc(var(--hero-blur, 0) * 1px));
+  pointer-events: none;
+  z-index: 10;
+}
+
 .hero-content {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+  z-index: 2;
+  filter: blur(calc(var(--hero-blur, 0) * 1px));
+  opacity: calc(1 - var(--hero-blur, 0) * 0.1);
+  transition: filter 0.1s, opacity 0.1s;
 }
 
 /* 返回按钮 - 对齐下方文章内容左边界 */
@@ -284,17 +305,21 @@ a {
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: background 0.2s;
   z-index: 50;
+  filter: blur(calc(var(--hero-blur, 0) * 1px));
+  opacity: calc(1 - var(--hero-blur, 0) * 0.1);
 }
 
 .hero-back-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .hero-date {
@@ -366,6 +391,7 @@ a {
 /* 首页时间线区域 */
 .timeline-section {
   padding: 0;
+  padding-bottom: 150px;
 }
 
 /* ===== 时间线 ===== */
@@ -389,7 +415,7 @@ a {
   position: absolute;
   left: 120px;
   top: 0;
-  bottom: 0;
+  bottom: -150px;
   width: 2px;
   background: var(--color-timeline);
 }
@@ -440,7 +466,7 @@ a {
 /* 年份标签 - 使用 sticky 定位 */
 .year-label {
   position: sticky;
-  top: calc(50vh - 1rem);
+  top: calc(40vh - 1rem);
   float: left;
   margin-left: -220px;
   margin-bottom: -2rem;
@@ -924,6 +950,17 @@ a {
   background: var(--color-bg);
 }
 
+.footer-github {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  color: var(--color-text-secondary);
+  transition: color 0.2s;
+}
+
+.footer-github:hover {
+  color: var(--color-text);
+}
+
 /* ===== 响应式 ===== */
 @media (max-width: 1100px) {
   /* 时间线布局调整 - 年份不再浮动在左侧 */
@@ -982,18 +1019,15 @@ a {
       linear-gradient(
         135deg,
         #7fcdcd 0%,
-        #8bb8e8 10%,
-        #c2a8cf 20%,
-        #e8a87c 30%,
-        #f5d89a 40%,
-        #c9e4ca 50%,
-        #7fcdcd 60%,
-        #8bb8e8 70%,
-        #c2a8cf 80%,
-        #e8a87c 90%,
-        #f5d89a 100%
+        #8bb8e8 15%,
+        #c2a8cf 30%,
+        #e8a87c 45%,
+        #f5d89a 60%,
+        #c9e4ca 75%,
+        #7fcdcd 90%,
+        #8bb8e8 100%
       );
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-attachment: fixed;
   }
