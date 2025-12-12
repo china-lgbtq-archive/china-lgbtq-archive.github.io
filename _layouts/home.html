@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function updateTimeline() {
     const timelineRect = timeline.getBoundingClientRect();
-    const trigger = window.innerHeight * 0.5;
+    const trigger = window.innerHeight * 0.4;
     
     // 计算时间线填充进度
     const scrolledIntoTimeline = Math.max(0, -timelineRect.top + trigger);
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 更新年份圆点填充
     yearMarkers.forEach(marker => {
       const rect = marker.getBoundingClientRect();
-      if (rect.top + 25 <= trigger) {
+      if (rect.top <= trigger) {
         marker.classList.add('filled');
       } else {
         marker.classList.remove('filled');

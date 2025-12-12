@@ -976,6 +976,45 @@ a {
 }
 
 @media (max-width: 640px) {
+  /* 移动端修复 - 静态渐变 */
+  html {
+    background: 
+      linear-gradient(
+        135deg,
+        #7fcdcd 0%,
+        #8bb8e8 10%,
+        #c2a8cf 20%,
+        #e8a87c 30%,
+        #f5d89a 40%,
+        #c9e4ca 50%,
+        #7fcdcd 60%,
+        #8bb8e8 70%,
+        #c2a8cf 80%,
+        #e8a87c 90%,
+        #f5d89a 100%
+      );
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  .site-header::before {
+    display: none;
+  }
+  
+  .site-header.scrolled {
+    background: #fff;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .site-header.scrolled .nav-toggle span {
+    background: #333;
+  }
+  
+  html, body {
+    overflow-x: hidden;
+  }
+  
   /* 移动端导航 */
   .nav-container {
     justify-content: flex-end;
