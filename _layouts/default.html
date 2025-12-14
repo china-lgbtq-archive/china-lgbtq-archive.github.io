@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.layout == 'home' %}{{ site.title }}{% elsif page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
+  <link rel="preload" href="{{ '/assets/fonts/LingDongQiCheChunTang-2.ttf' | relative_url }}" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +52,7 @@
         </div>
         {% endif %}
         {% elsif page.layout == 'home' %}
-        <h1>{{ site.title }}</h1>
+        <h1><span class="title-line">中国性少数</span><span class="title-line">历史档案</span></h1>
         {% else %}
         <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
         {% endif %}

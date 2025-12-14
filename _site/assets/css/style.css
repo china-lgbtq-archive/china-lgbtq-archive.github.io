@@ -1,4 +1,44 @@
 /* ===== 基础变量 ===== */
+@font-face {
+  font-family: 'HarmonyOS Sans';
+  src: url('../fonts/HarmonyOS_Sans_Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LingDong';
+  src: url('../fonts/LingDongQiCheChunTang-2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SanJi';
+  src: url('../fonts/SanJiXingKaiJianTi-Cu-2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'INgaan';
+  src: url('../fonts/I-Ngaan-2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SourceHanSans';
+  src: url('../fonts/SourceHanSansSC-Medium-2.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --color-bg: #fafaf9;
   --color-text: #1c1917;
@@ -164,7 +204,7 @@ a {
 
 .nav-links {
   display: flex;
-  gap: var(--space-xl);
+  gap: 4rem;
 }
 
 /* 汉堡菜单按钮 */
@@ -209,10 +249,11 @@ a {
 }
 
 .nav-links a {
-  font-size: 1.05rem;
+  font-family: 'SourceHanSans', var(--font-sans);
+  font-size: 1.15rem;
   font-weight: 500;
   color: #fff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   position: relative;
   padding: 0.25rem 0;
   transition: all 0.3s ease;
@@ -221,13 +262,14 @@ a {
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 50%;
   width: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.9);
+  height: 2.5px;
+  background: #fff;
   transition: all 0.3s ease;
   transform: translateX(-50%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .nav-links a:hover {
@@ -278,16 +320,21 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  bottom: 0;
   backdrop-filter: blur(calc(var(--hero-blur, 0) * 1px));
   -webkit-backdrop-filter: blur(calc(var(--hero-blur, 0) * 1px));
   pointer-events: none;
-  z-index: 10;
+  z-index: 1;
+}
+
+/* 多边形玻璃效果 */
+.hero::before {
+  display: none;
 }
 
 .hero-content {
   position: relative;
-  max-width: 800px;
+  max-width: none;
   margin: 0 auto;
   z-index: 2;
   filter: blur(calc(var(--hero-blur, 0) * 1px));
@@ -330,13 +377,26 @@ a {
 }
 
 .hero h1 {
-  font-family: var(--font-serif);
-  font-size: 3.25rem;
-  font-weight: 700;
+  font-family: 'LingDong', var(--font-serif);
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 900;
   color: #fff;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   margin-bottom: 0;
   letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.hero h1 .title-line {
+  display: inline;
+}
+
+/* Post 标题用普通字体 */
+.hero-date + h1 {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 700;
 }
 
 .hero .intro-text {
@@ -487,6 +547,7 @@ a {
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 
@@ -1116,7 +1177,11 @@ a {
   }
   
   .hero h1 {
-    font-size: 2rem;
+    font-size: 4.3rem;
+  }
+  
+  .hero h1 .title-line {
+    display: block;
   }
   
   .hero-back-btn {
