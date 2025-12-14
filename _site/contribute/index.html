@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>参与 | 中国性少数历史档案</title>
   <meta name="description" content="">
-  <link rel="preload" href="/assets/fonts/LingDongQiCheChunTang-2.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/assets/fonts/HanYi-subset.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,11 +26,26 @@
         <a href="/" >首页</a>
         <a href="/archive" >档案库</a>
         <a href="/library" >文库</a>
+        <a href="/memorial" >纪念</a>
         <a href="/contribute" class="active">参与</a>
-        <a href="/about" >关于</a>
+        <div class="nav-dropdown" id="navDropdown">
+          <span class="nav-dropdown-trigger " id="aboutTrigger">关于 <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></span>
+          <div class="nav-dropdown-submenu">
+            <a href="/about" >宗旨</a>
+            <a href="/background" >背景</a>
+            <a href="/contact" >联系我们</a>
+          </div>
+        </div>
       </div>
     </nav>
   </header>
+
+  <!-- 下拉菜单移到 header 外面以支持毛玻璃 -->
+  <div class="nav-dropdown-menu" id="about-dropdown">
+    <a href="/about">宗旨</a>
+    <a href="/background">背景</a>
+    <a href="/contact">联系我们</a>
+  </div>
 
   <div class="hero-wrapper">
     <div class="hero-blur-overlay"></div>
@@ -45,35 +60,75 @@
   </div>
 
   <main class="main-content">
-    <div class="page-content">
-  <h1>参与</h1>
-  <p class="page-intro">加入我们，共同建设这份档案</p>
-  
-  <div class="contribute-sections">
-    <section class="contribute-section">
-      <h2>投稿方式</h2>
-      <p>内容建设中...</p>
-    </section>
-    
-    <section class="contribute-section">
-      <h2>资助方式</h2>
-      <p>内容建设中...</p>
-    </section>
-    
-    <section class="contribute-section">
-      <h2>颁发与申领项目</h2>
-      <p>内容建设中...</p>
-    </section>
-  </div>
+    <div class="page-content contribute-page">
+
+  <h2 id="section">投稿方式</h2>
+
+  <p>我们期待对于性少数议题的关切者提供关于性少数事件的投稿，以及社会评论、不便发表的学术研究、未被公告的指导意见等等。我们会基于信息公开的收益、对于投稿及相关人员的保护、投稿内容的密度有选择地在本网站发布。</p>
+
+  <h2 id="section-1">资助方式</h2>
+
+  <p>我们对于本网站的工作人员有一定的补贴，理想情况下补贴为50元人民币一小时，但是本网站的资金目前主要由发起者提供，故存在免费志愿者和额外补贴的情况。如果有资助者愿意提供1000元人民币以上补贴的，我们可以根据补贴金额，设计项目，进行专项的相关工作。</p>
+
+  <h2 id="section-2">颁发与申领项目</h2>
+
+  <p>我们欢迎社会成员经由本平台颁发和申领项目。可以颁发和申领的项目不限形式，但是，出于保护我们的参与者与维持平台长久运行的目的，项目需要确保是温和而安全的。因此，我们目前主要设想参与者可以经由本平台颁发和申领文字相关的工作，包括但不限于“特定事件的网络民族志研究”“特定议题的学术研究”“对于国家政策动态的解读”等等。</p>
+
+  <h2 id="section-3">现有项目</h2>
+
+  <p>我们目前对于以下议题的工作征收投稿：</p>
+
+  <ul>
+    <li>对于与性少数有关的重要事件的时事评论</li>
+    <li>关于个体性少数活动者如何行动的理论与实践经验探讨</li>
+    <li>关于性少数如何在新时代中国特色社会主义建设中组织起来发挥积极力量的探讨</li>
+    <li>关于性少数个体与组织如何将党的领导与社群的自强独立结合起来的理论与实践探讨</li>
+    <li>性少数有关的生命体验分享与感悟</li>
+    <li>性少数有关的历史记忆与评论</li>
+    <li>关于性少数有关的学术研究综述</li>
+    <li>性少数有关的文学艺术作品</li>
+  </ul>
+
+  <p>一些具体的议题包括：</p>
+
+  <ul>
+    <li>评论波士顿圆脸/潮妈对于性少数的叙事</li>
+    <li>“人民”这一概念是否包含同性恋和跨性别？</li>
+    <li>性少数群体可以不受排斥地参与到党政机关的工作中吗？</li>
+    <li>中国有没有一种“异性恋的身份政治和政治正确”？</li>
+    <li>中国特色的网络左派有没有把性别问题和性少数问题作为劳工问题的附庸，并且忽视其实质处境，不予以实质支持？如果是，请给出具体案例说明</li>
+    <li>同性恋的荧幕呈现经常被认为是违反“公序良俗”的，与黑帮打斗、封建迷信等列，如何理解公序良俗？</li>
+    <li>作为普通工人或基层公务员的性少数生命故事分享</li>
+  </ul>
+
+  <h2 id="section-4">法律顾问</h2>
+
+  <p>我们期待一切活动都在符合法律法规的基础上运行，因此，我们期待有了解相关法律的专业人士提供法律咨询服务，比如通过个人账户提供稿酬是否合法。</p>
+
+  <h2 id="section-5">联系方式</h2>
+
+  <p>投稿、资助、颁发与申领项目请通过邮箱联系：[待补充]</p>
+
 </div>
 
   </main>
 
   <footer class="site-footer">
-    <p>© 2025 中国性少数历史档案</p>
-    <a href="https://github.com/china-lgbtq-archive" target="_blank" rel="noopener" class="footer-github" title="GitHub">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-    </a>
+    <div class="footer-links">
+      <p class="footer-links-title">友情链接</p>
+      <p class="footer-links-desc">我们对于以下的若干性少数网站或平台表示欣赏：</p>
+      <div class="footer-links-list">
+        <a href="#" target="_blank" rel="noopener">网站名称A</a>
+        <a href="#" target="_blank" rel="noopener">网站名称B</a>
+        <a href="#" target="_blank" rel="noopener">网站名称C</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 中国性少数历史档案</p>
+      <a href="https://github.com/china-lgbtq-archive" target="_blank" rel="noopener" class="footer-github" title="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
   </footer>
 
   <script>
@@ -83,11 +138,71 @@
       const navToggle = document.querySelector('.nav-toggle');
       const navLinks = document.querySelector('.nav-links');
       
+      // 下拉菜单控制
+      const dropdownTrigger = document.querySelector('.nav-dropdown-trigger');
+      const dropdownMenu = document.getElementById('about-dropdown');
+      const navDropdown = document.querySelector('.nav-dropdown');
+      
+      if (dropdownTrigger && dropdownMenu) {
+        // 定位下拉菜单
+        function positionDropdown() {
+          const rect = dropdownTrigger.getBoundingClientRect();
+          dropdownMenu.style.left = (rect.left + rect.width / 2) + 'px';
+          dropdownMenu.style.top = (rect.bottom + 10) + 'px';
+        }
+        
+        let hideTimeout;
+        
+        function showDropdown() {
+          clearTimeout(hideTimeout);
+          positionDropdown();
+          dropdownMenu.classList.add('show');
+          navDropdown.classList.add('hover');
+        }
+        
+        function hideDropdown() {
+          hideTimeout = setTimeout(() => {
+            dropdownMenu.classList.remove('show');
+            navDropdown.classList.remove('hover');
+          }, 100);
+        }
+        
+        navDropdown.addEventListener('mouseenter', showDropdown);
+        navDropdown.addEventListener('mouseleave', hideDropdown);
+        dropdownMenu.addEventListener('mouseenter', showDropdown);
+        dropdownMenu.addEventListener('mouseleave', hideDropdown);
+        
+        window.addEventListener('resize', positionDropdown);
+        window.addEventListener('scroll', positionDropdown);
+      }
+      
+      // 检查是否在关于子页面
+      const isAboutSubpage = dropdownTrigger && dropdownTrigger.classList.contains('active');
+      
       // 汉堡菜单切换
       navToggle.addEventListener('click', function() {
+        const isOpening = !navLinks.classList.contains('open');
         navToggle.classList.toggle('active');
         navLinks.classList.toggle('open');
+        
+        if (isOpening && isAboutSubpage) {
+          // 打开菜单时，如果在子页面则自动展开
+          navDropdown.classList.add('open');
+        } else if (!isOpening) {
+          // 关闭菜单时收起
+          navDropdown.classList.remove('open');
+        }
       });
+      
+      // 移动端下拉菜单点击展开
+      if (dropdownTrigger && navDropdown) {
+        dropdownTrigger.addEventListener('click', function(e) {
+          if (window.innerWidth <= 640) {
+            e.preventDefault();
+            navDropdown.classList.toggle('open');
+          }
+        });
+      }
       
       // 点击链接后关闭菜单
       navLinks.querySelectorAll('a').forEach(link => {

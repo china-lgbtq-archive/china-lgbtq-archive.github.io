@@ -9,10 +9,42 @@
 
 @font-face {
   font-family: 'LingDong';
-  src: url('../fonts/LingDongQiCheChunTang-2.ttf') format('truetype');
+  src: url('../fonts/LingDong-subset.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+  font-family: 'KangXi';
+  src: url('../fonts/KangXi-subset.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sucai';
+  src: url('../fonts/Sucai-subset.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WenKai';
+  src: url('../fonts/WenKai-subset.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HanYi';
+  src: url('../fonts/HanYi-subset.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
 }
 
 @font-face {
@@ -288,6 +320,123 @@ a {
   width: 100%;
 }
 
+/* 下拉菜单 */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  font-family: 'SourceHanSans', var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+.nav-dropdown-trigger::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2.5px;
+  background: #fff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger::after,
+.nav-dropdown.hover .nav-dropdown-trigger::after,
+.nav-dropdown-trigger.active::after {
+  width: 100%;
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s;
+}
+
+.nav-dropdown:hover .dropdown-arrow,
+.nav-dropdown.hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 140px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 0s linear 140ms;
+  z-index: 150;
+}
+
+.nav-dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  border-left: 1px solid rgba(255, 255, 255, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 0s linear 0s;
+}
+
+.nav-dropdown-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-family: 'SourceHanSans', var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.92) !important;
+  text-shadow: none !important;
+  text-align: center;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.nav-dropdown-menu a:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.nav-dropdown-menu a::after {
+  display: none;
+}
+
+/* 桌面端隐藏内部子菜单 */
+.nav-dropdown-submenu {
+  display: none;
+}
+
 /* ===== Hero 包裹层（导航 + 标题一体） ===== */
 .hero-wrapper {
   position: relative;
@@ -377,9 +526,9 @@ a {
 }
 
 .hero h1 {
-  font-family: 'LingDong', var(--font-serif);
+  font-family: 'HanYi', var(--font-serif);
   font-size: clamp(3.5rem, 10vw, 7rem);
-  font-weight: 900;
+  font-weight: normal;
   color: #fff;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   margin-bottom: 0;
@@ -392,11 +541,12 @@ a {
   display: inline;
 }
 
-/* Post 标题用普通字体 */
+/* Post 标题也用 HanYi 字体 */
 .hero-date + h1 {
-  font-family: var(--font-serif);
-  font-size: 3rem;
-  font-weight: 700;
+  font-family: 'HanYi', var(--font-serif);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: normal;
+  white-space: normal;
 }
 
 .hero .intro-text {
@@ -475,7 +625,7 @@ a {
   position: absolute;
   left: 120px;
   top: 0;
-  bottom: -150px;
+  bottom: 0;
   width: 2px;
   background: var(--color-timeline);
 }
@@ -983,15 +1133,235 @@ a {
 }
 
 /* ===== 关于页面 ===== */
-.about-page h1 {
+.about-page h2 {
   font-family: var(--font-serif);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: var(--space-lg);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.about-page h2:first-child {
+  margin-top: 0;
+}
+
+.about-page h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
 }
 
 .about-page p {
   margin-bottom: var(--space-md);
+  line-height: 2;
+}
+
+.about-page .note {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: var(--space-lg);
+}
+
+.about-page .signature {
+  text-align: right;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-lg);
+}
+
+/* ===== 参与页面 ===== */
+.contribute-page h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.contribute-page h2:first-of-type {
+  margin-top: 0;
+}
+
+.contribute-page p {
+  margin-bottom: var(--space-md);
+  line-height: 1.8;
+}
+
+.contribute-page ul {
+  margin-bottom: var(--space-md);
+  padding-left: var(--space-lg);
+}
+
+.contribute-page li {
+  margin-bottom: var(--space-sm);
+  line-height: 1.8;
+}
+
+/* ===== 文库页面 ===== */
+.library-page h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.library-page h2:first-of-type {
+  margin-top: 0;
+}
+
+/* ===== 纪念页面 ===== */
+.memorial-page h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.memorial-page h2:first-of-type {
+  margin-top: 0;
+}
+
+.memorial-page p {
+  margin-bottom: var(--space-md);
+  line-height: 2;
+}
+
+.memorial-list {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.memorial-person {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-sm) 0;
+}
+
+.memorial-person:last-of-type {
+  border-bottom: none;
+}
+
+.memorial-person summary {
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  padding: var(--space-sm) 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.memorial-person summary::-webkit-details-marker {
+  display: none;
+}
+
+.memorial-person summary::before {
+  content: '▶';
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  transition: transform 0.2s;
+}
+
+.memorial-person[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.memorial-story {
+  padding: var(--space-md);
+  padding-left: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  background: var(--color-accent-light);
+  border-radius: 4px;
+  margin-top: var(--space-sm);
+}
+
+.memorial-page .call-to-action {
+  background: var(--color-accent-light);
+  padding: var(--space-xl);
+  border-radius: 8px;
+  text-align: center;
+  margin-top: var(--space-xl);
+}
+
+.memorial-page .call-to-action p {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-sm);
+  line-height: 1.8;
+}
+
+.memorial-page .signature {
+  text-align: right;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-md);
+  margin-bottom: 0;
+}
+
+/* ===== 自杀页面 ===== */
+.suicide-page h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.suicide-page h2:first-of-type {
+  margin-top: 0;
+}
+
+.suicide-page p {
+  margin-bottom: var(--space-md);
+  line-height: 2;
+}
+
+.suicide-page hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-xl) 0;
+}
+
+.suicide-page .call-to-action {
+  background: var(--color-accent-light);
+  padding: var(--space-lg);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.suicide-page .call-to-action p {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-sm);
+}
+
+.suicide-page .signature {
+  text-align: right;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-md);
+}
+
+.memorial-list {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  margin: var(--space-md) 0;
 }
 
 /* ===== 空状态 ===== */
@@ -1003,17 +1373,63 @@ a {
 
 /* ===== 页脚 ===== */
 .site-footer {
-  text-align: center;
-  padding: var(--space-lg);
-  font-size: 0.8125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-xl) var(--space-lg);
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
   border-top: 1px solid var(--color-border);
   background: var(--color-bg);
 }
 
+.footer-links {
+  text-align: center;
+  max-width: 600px;
+}
+
+.footer-links-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.footer-links-desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.footer-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm) var(--space-md);
+}
+
+.footer-links-list a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.footer-links-list a:hover {
+  color: var(--color-text);
+  background: var(--color-accent-light);
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
 .footer-github {
-  display: inline-block;
-  margin-top: var(--space-sm);
   color: var(--color-text-secondary);
   transition: color 0.2s;
 }
@@ -1174,6 +1590,88 @@ a {
   .nav-links a.active::after,
   .nav-links a:hover::after {
     width: 100%;
+  }
+  
+  /* 移动端下拉菜单 */
+  .nav-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav-dropdown-trigger {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    position: relative;
+  }
+  
+  .nav-dropdown-trigger::after {
+    display: none;
+  }
+  
+  .dropdown-arrow {
+    position: absolute;
+    left: calc(100% + 0.25rem);
+    transition: transform 0.2s;
+    transform: rotate(0deg) !important;
+  }
+  
+  .nav-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg) !important;
+  }
+  
+  /* 隐藏桌面端的外部下拉菜单 */
+  #about-dropdown {
+    display: none !important;
+  }
+  
+  /* 移动端内部子菜单 */
+  .nav-dropdown-submenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+  }
+  
+  .nav-dropdown.open .nav-dropdown-submenu {
+    max-height: 200px;
+    opacity: 1;
+  }
+  
+  .nav-dropdown-submenu a {
+    color: #fff !important;
+    font-size: 1.1rem !important;
+    padding: 0.35rem 0 !important;
+    background: transparent !important;
+    position: relative;
+  }
+  
+  .nav-dropdown-submenu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-dropdown-submenu a:hover::after,
+  .nav-dropdown-submenu a.active::after {
+    width: 100%;
+  }
+  
+  .nav-dropdown-submenu a:hover {
+    color: #fff !important;
   }
   
   .hero h1 {
