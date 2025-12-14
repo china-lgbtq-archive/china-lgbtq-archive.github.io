@@ -184,6 +184,7 @@ a {
   -webkit-backdrop-filter: blur(12px);
 }
 
+/* 渐变背景层 */
 .site-header::before {
   content: '';
   position: absolute;
@@ -211,8 +212,14 @@ a {
   z-index: -2;
 }
 
+/* 半透明遮罩层 */
 .site-header::after {
-  display: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .header-noise {
