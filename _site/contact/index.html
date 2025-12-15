@@ -190,18 +190,8 @@
         dropdownMenu.addEventListener('mouseenter', openDropdown);
         dropdownMenu.addEventListener('mouseleave', closeDropdown);
         
-        // 点击 header 外面取消固定并关闭
-        document.addEventListener('click', function(e) {
-          // 点击了 header 内部则不关闭
-          if (header.contains(e.target)) {
-            return;
-          }
-          
-          isPinned = false;
-          dropdownMenu.classList.remove('show');
-          navDropdown.classList.remove('hover');
-          header.classList.remove('dropdown-open');
-        });
+        // 只有点击关于才能收回
+        // 删除 document click 事件
         
         window.addEventListener('resize', updateHeaderHeight);
       }
