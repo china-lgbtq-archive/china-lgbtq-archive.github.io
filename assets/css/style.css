@@ -234,18 +234,40 @@ a {
   display: none;
 }
 
-/* 毛玻璃背景层 */
+/* 毛玻璃背景层 - 只有 blur */
 .header-glass {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: 100%;
   background: rgba(0, 0, 0, 0.12);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   pointer-events: none;
   z-index: -1;
+}
+
+/* hover 时的“穿透”效果 - 用伪元素遮住 header-glass 的黑色部分 */
+.nav-links a::after,
+.nav-dropdown-trigger::after,
+.nav-dropdown-bar a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: -1;
+  background: rgba(255, 255, 255, 1);
+  mix-blend-mode: overlay;
+}
+
+.nav-links a:hover::after,
+.nav-dropdown:hover .nav-dropdown-trigger::after,
+.nav-dropdown.hover .nav-dropdown-trigger::after,
+.nav-dropdown-bar a:hover::after {
+  opacity: 0.25;
 }
 
 .header-noise {
@@ -256,10 +278,10 @@ a {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
-  padding: var(--space-md) var(--space-lg);
+  padding: 0 var(--space-lg);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   z-index: 1;
 }
 
@@ -269,7 +291,8 @@ a {
 
 .nav-links {
   display: flex;
-  gap: 4rem;
+  gap: 0;
+  align-items: stretch;
 }
 
 /* 汉堡菜单按钮 */
@@ -320,42 +343,25 @@ a {
   color: #fff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   position: relative;
-  padding: 0.25rem 0;
-  transition: all 0.3s ease;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  width: 0;
-  height: 2.5px;
-  background: #fff;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s ease;
 }
 
 .nav-links a:hover {
   color: #fff;
 }
 
-.nav-links a:hover::after {
-  width: 100%;
-}
-
 .nav-links a.active {
   color: #fff;
-}
-
-.nav-links a.active::after {
-  width: 100%;
 }
 
 /* 下拉菜单 */
 .nav-dropdown {
   position: relative;
+  display: flex;
+  align-items: stretch;
 }
 
 .nav-dropdown-trigger {
@@ -368,29 +374,17 @@ a {
   font-weight: 500;
   color: #fff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  padding: 0.25rem 0;
-  position: relative;
+  padding: 1rem 1.5rem;
+  transition: all 0.2s ease;
 }
 
-.nav-dropdown-trigger::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  width: 0;
-  height: 2.5px;
-  background: #fff;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+.nav-dropdown:hover .nav-dropdown-trigger,
+.nav-dropdown.hover .nav-dropdown-trigger {
+  /* hover 效果由 ::after 处理 */
 }
 
-.nav-dropdown:hover .nav-dropdown-trigger::after {
-  width: 100%;
-}
-
-.nav-dropdown-trigger.active::after {
-  width: 100%;
+.nav-dropdown-trigger.active {
+  /* active 状态 */
 }
 
 .dropdown-arrow {
@@ -415,7 +409,7 @@ a {
   opacity: 0;
   pointer-events: none;
   transition: opacity 250ms cubic-bezier(.4, 0, .2, 1);
-  z-index: 1;
+  z-index: 2;
 }
 
 .nav-dropdown-bar.show {
@@ -430,8 +424,8 @@ a {
   padding: 0 var(--space-lg);
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 3rem;
+  align-items: stretch;
+  gap: 0;
 }
 
 .nav-dropdown-bar a {
@@ -441,31 +435,11 @@ a {
   color: #fff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   text-decoration: none;
-  padding: 0.5rem 0;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
   position: relative;
-  transition: color 0.2s;
-}
-
-.nav-dropdown-bar a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: #fff;
-  transform: translateX(-50%);
-  transition: width 0.2s;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-.nav-dropdown-bar a:hover {
-  color: #fff;
-}
-
-.nav-dropdown-bar a:hover::after,
-.nav-dropdown-bar a.active::after {
-  width: 100%;
+  transition: background 0.2s;
 }
 
 .nav-dropdown-bar a.active {
@@ -568,11 +542,11 @@ a {
   display: inline;
 }
 
-/* Post 标题也用 HanYi 字体 */
+/* Post 标题不用 HanYi 字体 */
 .hero-date + h1 {
-  font-family: 'HanYi', var(--font-serif);
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 6vw, 3.5rem);
-  font-weight: normal;
+  font-weight: 600;
   white-space: normal;
 }
 

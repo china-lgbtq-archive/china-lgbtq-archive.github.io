@@ -27,7 +27,14 @@
       <div class="nav-links">
         <a href="/" >首页</a>
         <a href="/archive" class="active">档案库</a>
-        <a href="/library" >文库</a>
+        <div class="nav-dropdown" id="libraryDropdown">
+          <span class="nav-dropdown-trigger " id="libraryTrigger">文库 <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></span>
+          <!-- 移动端子菜单 -->
+          <div class="nav-dropdown-submenu">
+            <a href="/library/topics" >专题文章</a>
+            <a href="/library/founder" >网站发起人文辑</a>
+          </div>
+        </div>
         <a href="/memorial" >纪念</a>
         <a href="/contribute" >参与</a>
         <div class="nav-dropdown" id="navDropdown">
@@ -41,7 +48,14 @@
         </div>
       </div>
     </nav>
-    <!-- 下拉菜单 - 在 header 内部，由 header-glass 自然覆盖 -->
+    <!-- 文库下拉菜单 -->
+    <div class="nav-dropdown-bar" id="library-dropdown">
+      <div class="nav-dropdown-bar-inner">
+        <a href="/library/topics" >专题文章</a>
+        <a href="/library/founder" >网站发起人文辑</a>
+      </div>
+    </div>
+    <!-- 关于下拉菜单 -->
     <div class="nav-dropdown-bar" id="about-dropdown">
       <div class="nav-dropdown-bar-inner">
         <a href="/about" >宗旨</a>
@@ -362,133 +376,82 @@ document.addEventListener('DOMContentLoaded', function() {
       const hero = document.querySelector('.hero-wrapper');
       const navToggle = document.querySelector('.nav-toggle');
       const navLinks = document.querySelector('.nav-links');
-      const navDropdown = document.querySelector('.nav-dropdown');
-      const dropdownTrigger = document.querySelector('.nav-dropdown-trigger');
-      const dropdownMenu = document.getElementById('about-dropdown');
       
-      // 下拉菜单控制 - hover 展开/收回，点击保持
-      if (dropdownTrigger && dropdownMenu) {
-        let isPinned = false;
+      // 通用下拉菜单控制 - 只点击展开，点击外面收回
+      function setupDropdown(navDropdown, dropdownMenu) {
+        if (!navDropdown || !dropdownMenu) return;
         
-        function updateHeaderHeight() {
-          const headerHeight = header.offsetHeight;
-          document.documentElement.style.setProperty('--header-height', headerHeight + 'px');
-        }
+        const dropdownTrigger = navDropdown.querySelector('.nav-dropdown-trigger');
+        if (!dropdownTrigger) return;
         
-        updateHeaderHeight();
-        
-        let hideTimeout;
-        
-        function openDropdown(animate = true) {
-          clearTimeout(hideTimeout);
-          updateHeaderHeight();
-          
-          // 控制箭头动画
-          const arrow = dropdownTrigger.querySelector('.dropdown-arrow');
-          if (arrow && !animate) {
-            arrow.style.transition = 'none';
-            arrow.offsetHeight;
-          }
+        function openDropdown() {
+          // 关闭其他 dropdown
+          document.querySelectorAll('.nav-dropdown-bar.show').forEach(bar => {
+            if (bar !== dropdownMenu) {
+              bar.classList.remove('show');
+            }
+          });
+          document.querySelectorAll('.nav-dropdown.hover').forEach(dd => {
+            if (dd !== navDropdown) {
+              dd.classList.remove('hover');
+            }
+          });
           
           dropdownMenu.classList.add('show');
           navDropdown.classList.add('hover');
           header.classList.add('dropdown-open');
-          
-          if (arrow && !animate) {
-            setTimeout(() => arrow.style.transition = '', 20);
+        }
+        
+        function closeDropdown() {
+          dropdownMenu.classList.remove('show');
+          navDropdown.classList.remove('hover');
+          if (!document.querySelector('.nav-dropdown-bar.show')) {
+            header.classList.remove('dropdown-open');
           }
         }
         
-        function closeDropdown(animate = true) {
-          if (isPinned) return;
-          
-          const arrow = dropdownTrigger.querySelector('.dropdown-arrow');
-          
-          hideTimeout = setTimeout(() => {
-            if (arrow && !animate) {
-              arrow.style.transition = 'none';
-              arrow.offsetHeight;
-            }
-            
-            dropdownMenu.classList.remove('show');
-            navDropdown.classList.remove('hover');
-            header.classList.remove('dropdown-open');
-            
-            if (arrow && !animate) {
-              setTimeout(() => arrow.style.transition = '', 20);
-            }
-          }, 100);
-        }
-        
-        // 点击切换固定状态
+        // 点击切换
         dropdownTrigger.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
           
-          const arrow = dropdownTrigger.querySelector('.dropdown-arrow');
-          const isCurrentlyOpen = navDropdown.classList.contains('hover');
-          
-          // 只有状态要变化时才禁用动画
-          if (arrow) {
-            arrow.style.transition = 'none';
-            arrow.offsetHeight;
-          }
-          
-          if (isPinned) {
-            isPinned = false;
-            dropdownMenu.classList.remove('show');
-            navDropdown.classList.remove('hover');
-            header.classList.remove('dropdown-open');
+          if (dropdownMenu.classList.contains('show')) {
+            closeDropdown();
           } else {
-            isPinned = true;
-            clearTimeout(hideTimeout);
-            dropdownMenu.classList.add('show');
-            navDropdown.classList.add('hover');
-            header.classList.add('dropdown-open');
+            openDropdown();
           }
           
-          setTimeout(() => {
-            if (arrow) arrow.style.transition = '';
-          }, 20);
-        });
-        
-        // hover 展开/收回
-        navDropdown.addEventListener('mouseenter', openDropdown);
-        navDropdown.addEventListener('mouseleave', closeDropdown);
-        dropdownMenu.addEventListener('mouseenter', openDropdown);
-        dropdownMenu.addEventListener('mouseleave', closeDropdown);
-        
-        // 只有点击关于才能收回
-        // 删除 document click 事件
-        
-        window.addEventListener('resize', updateHeaderHeight);
-      }
-      
-      // 检查是否在关于子页面
-      const isAboutSubpage = dropdownTrigger && dropdownTrigger.classList.contains('active');
-      
-      // 汉堡菜单切换
-      navToggle.addEventListener('click', function() {
-        const isOpening = !navLinks.classList.contains('open');
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('open');
-        
-        if (isOpening && isAboutSubpage) {
-          navDropdown.classList.add('open');
-        } else if (!isOpening) {
-          navDropdown.classList.remove('open');
-        }
-      });
-      
-      // 移动端下拉菜单点击展开
-      if (dropdownTrigger && navDropdown) {
-        dropdownTrigger.addEventListener('click', function(e) {
+          // 移动端
           if (window.innerWidth <= 640) {
-            e.preventDefault();
             navDropdown.classList.toggle('open');
           }
         });
+        
+        // 点击外面收回（但不包括 dropdown 和 dropdownMenu）
+        document.addEventListener('click', function(e) {
+          if (!navDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            closeDropdown();
+          }
+        });
       }
+      
+      // 设置文库下拉菜单
+      setupDropdown(
+        document.getElementById('libraryDropdown'),
+        document.getElementById('library-dropdown')
+      );
+      
+      // 设置关于下拉菜单
+      setupDropdown(
+        document.getElementById('navDropdown'),
+        document.getElementById('about-dropdown')
+      );
+      
+      // 汉堡菜单切换
+      navToggle.addEventListener('click', function() {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
       
       // 点击链接后关闭菜单
       navLinks.querySelectorAll('a').forEach(link => {

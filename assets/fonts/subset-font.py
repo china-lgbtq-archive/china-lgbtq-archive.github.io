@@ -18,6 +18,8 @@ titles = [
     "文库",              # library
     "纪念",              # memorial
     "序言",              # entry
+    "专题文章",          # library/topics
+    "网站发起人文辑",    # library/founder
 ]
 
 chars = ''.join(titles)
