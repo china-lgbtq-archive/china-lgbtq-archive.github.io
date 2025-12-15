@@ -13,6 +13,8 @@
 </head>
 <body>
   <header class="site-header">
+    <!-- 毛玻璃背景层 -->
+    <div class="header-glass"></div>
     <span class="header-noise"></span>
     <nav class="nav-container">
       <!-- 汉堡菜单按钮 -->
@@ -30,6 +32,7 @@
         <a href="/contribute" >参与</a>
         <div class="nav-dropdown" id="navDropdown">
           <span class="nav-dropdown-trigger " id="aboutTrigger">关于 <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></span>
+          <!-- 移动端子菜单 -->
           <div class="nav-dropdown-submenu">
             <a href="/about" >宗旨</a>
             <a href="/background" >背景</a>
@@ -38,14 +41,15 @@
         </div>
       </div>
     </nav>
+    <!-- 下拉菜单 - 在 header 内部，由 header-glass 自然覆盖 -->
+    <div class="nav-dropdown-bar" id="about-dropdown">
+      <div class="nav-dropdown-bar-inner">
+        <a href="/about" >宗旨</a>
+        <a href="/background" >背景</a>
+        <a href="/contact" >联系我们</a>
+      </div>
+    </div>
   </header>
-
-  <!-- 下拉菜单移到 header 外面以支持毛玻璃 -->
-  <div class="nav-dropdown-menu" id="about-dropdown">
-    <a href="/about">宗旨</a>
-    <a href="/background">背景</a>
-    <a href="/contact">联系我们</a>
-  </div>
 
   <div class="hero-wrapper">
     <div class="hero-blur-overlay"></div>
@@ -100,43 +104,113 @@
       const hero = document.querySelector('.hero-wrapper');
       const navToggle = document.querySelector('.nav-toggle');
       const navLinks = document.querySelector('.nav-links');
-      
-      // 下拉菜单控制
+      const navDropdown = document.querySelector('.nav-dropdown');
       const dropdownTrigger = document.querySelector('.nav-dropdown-trigger');
       const dropdownMenu = document.getElementById('about-dropdown');
-      const navDropdown = document.querySelector('.nav-dropdown');
       
+      // 下拉菜单控制 - hover 展开/收回，点击保持
       if (dropdownTrigger && dropdownMenu) {
-        // 定位下拉菜单
-        function positionDropdown() {
-          const rect = dropdownTrigger.getBoundingClientRect();
-          dropdownMenu.style.left = (rect.left + rect.width / 2) + 'px';
-          dropdownMenu.style.top = (rect.bottom + 10) + 'px';
+        let isPinned = false;
+        
+        function updateHeaderHeight() {
+          const headerHeight = header.offsetHeight;
+          document.documentElement.style.setProperty('--header-height', headerHeight + 'px');
         }
+        
+        updateHeaderHeight();
         
         let hideTimeout;
         
-        function showDropdown() {
+        function openDropdown(animate = true) {
           clearTimeout(hideTimeout);
-          positionDropdown();
+          updateHeaderHeight();
+          
+          // 控制箭头动画
+          const arrow = dropdownTrigger.querySelector('.dropdown-arrow');
+          if (arrow && !animate) {
+            arrow.style.transition = 'none';
+            arrow.offsetHeight;
+          }
+          
           dropdownMenu.classList.add('show');
           navDropdown.classList.add('hover');
+          header.classList.add('dropdown-open');
+          
+          if (arrow && !animate) {
+            setTimeout(() => arrow.style.transition = '', 20);
+          }
         }
         
-        function hideDropdown() {
+        function closeDropdown(animate = true) {
+          if (isPinned) return;
+          
+          const arrow = dropdownTrigger.querySelector('.dropdown-arrow');
+          
           hideTimeout = setTimeout(() => {
+            if (arrow && !animate) {
+              arrow.style.transition = 'none';
+              arrow.offsetHeight;
+            }
+            
             dropdownMenu.classList.remove('show');
             navDropdown.classList.remove('hover');
+            header.classList.remove('dropdown-open');
+            
+            if (arrow && !animate) {
+              setTimeout(() => arrow.style.transition = '', 20);
+            }
           }, 100);
         }
         
-        navDropdown.addEventListener('mouseenter', showDropdown);
-        navDropdown.addEventListener('mouseleave', hideDropdown);
-        dropdownMenu.addEventListener('mouseenter', showDropdown);
-        dropdownMenu.addEventListener('mouseleave', hideDropdown);
+        // 点击切换固定状态
+        dropdownTrigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const arrow = dropdownTrigger.querySelector('.dropdown-arrow');
+          const isCurrentlyOpen = navDropdown.classList.contains('hover');
+          
+          // 只有状态要变化时才禁用动画
+          if (arrow) {
+            arrow.style.transition = 'none';
+            arrow.offsetHeight;
+          }
+          
+          if (isPinned) {
+            isPinned = false;
+            dropdownMenu.classList.remove('show');
+            navDropdown.classList.remove('hover');
+            header.classList.remove('dropdown-open');
+          } else {
+            isPinned = true;
+            clearTimeout(hideTimeout);
+            dropdownMenu.classList.add('show');
+            navDropdown.classList.add('hover');
+            header.classList.add('dropdown-open');
+          }
+          
+          setTimeout(() => {
+            if (arrow) arrow.style.transition = '';
+          }, 20);
+        });
         
-        window.addEventListener('resize', positionDropdown);
-        window.addEventListener('scroll', positionDropdown);
+        // hover 展开/收回
+        navDropdown.addEventListener('mouseenter', openDropdown);
+        navDropdown.addEventListener('mouseleave', closeDropdown);
+        dropdownMenu.addEventListener('mouseenter', openDropdown);
+        dropdownMenu.addEventListener('mouseleave', closeDropdown);
+        
+        // 点击其他地方取消固定并关闭
+        document.addEventListener('click', function(e) {
+          if (!navDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            isPinned = false;
+            dropdownMenu.classList.remove('show');
+            navDropdown.classList.remove('hover');
+            header.classList.remove('dropdown-open');
+          }
+        });
+        
+        window.addEventListener('resize', updateHeaderHeight);
       }
       
       // 检查是否在关于子页面
@@ -149,10 +223,8 @@
         navLinks.classList.toggle('open');
         
         if (isOpening && isAboutSubpage) {
-          // 打开菜单时，如果在子页面则自动展开
           navDropdown.classList.add('open');
         } else if (!isOpening) {
-          // 关闭菜单时收起
           navDropdown.classList.remove('open');
         }
       });
@@ -175,12 +247,11 @@
         });
       });
       
-      // 窗口尺寸变化时关闭菜单（仅在跨越640px断点时）
+      // 窗口尺寸变化时关闭菜单
       let lastWidth = window.innerWidth;
       const breakpoint = 640;
       window.addEventListener('resize', function() {
         const currentWidth = window.innerWidth;
-        // 只有在跨越断点时才关闭菜单
         if ((lastWidth <= breakpoint && currentWidth > breakpoint) || 
             (lastWidth > breakpoint && currentWidth <= breakpoint)) {
           navToggle.classList.remove('active');
@@ -193,7 +264,6 @@
         const headerHeight = header.offsetHeight;
         const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
         
-        // 提前开始淡入，在 hero 底部距离 header 100px 时开始
         const fadeStart = headerHeight + 100;
         const fadeEnd = headerHeight;
         
@@ -207,31 +277,18 @@
         document.documentElement.style.setProperty('--header-opacity', opacity);
         
         if (heroBottom <= headerHeight) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-      
-      // Hero 毛玻璃效果
-      const blurStart = 150;
-      const blurEnd = 400;
-      let blurAmount = 0;
-      if (window.scrollY > blurStart) {
-        blurAmount = Math.min((window.scrollY - blurStart) / (blurEnd - blurStart) * 8, 8);
-      }
-      document.documentElement.style.setProperty('--hero-blur', blurAmount);
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
         
-        // 全息流动效果 - 统一控制 body 和 header
+        // 全息流动效果
         if (hero) {
           const heroHeight = hero.offsetHeight;
-          const headerHeight = header.offsetHeight;
           const scrollY = window.scrollY;
-          // 流动速度 - 刚好在滑出 hero 时完成渐变
           const scrollRange = heroHeight - headerHeight;
           const progress = Math.min(scrollY / scrollRange, 1);
           const posY = 100 - progress * 100;
-          
-          // 统一设置到 root，body 和 header 都会读取
           document.documentElement.style.setProperty('--bg-pos-y', `${posY}%`);
         }
       }
