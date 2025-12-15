@@ -108,20 +108,25 @@ html {
     linear-gradient(
       135deg,
       #7fcdcd 0%,
-      #8bb8e8 10%,
-      #c2a8cf 20%,
-      #e8a87c 30%,
-      #f5d89a 40%,
-      #c9e4ca 50%,
-      #7fcdcd 60%,
-      #8bb8e8 70%,
-      #c2a8cf 80%,
-      #e8a87c 90%,
-      #f5d89a 100%
+      #8bb8e8 12%,
+      #c2a8cf 24%,
+      #e8a87c 36%,
+      #f5d89a 48%,
+      #c9e4ca 60%,
+      #7fcdcd 72%,
+      #8bb8e8 84%,
+      #c2a8cf 100%
     );
   background-size: 150vw 200vh;
   background-position: -10vw var(--bg-pos-y, 100%);
   background-attachment: fixed;
+}
+
+@media (max-width: 640px) {
+  html {
+    background-size: 300vw 150vh;
+    background-position: -50vw var(--bg-pos-y, 100%);
+  }
 }
 
 /* 自定义滚动条 */
@@ -200,16 +205,14 @@ a {
     linear-gradient(
       135deg,
       #7fcdcd 0%,
-      #8bb8e8 10%,
-      #c2a8cf 20%,
-      #e8a87c 30%,
-      #f5d89a 40%,
-      #c9e4ca 50%,
-      #7fcdcd 60%,
-      #8bb8e8 70%,
-      #c2a8cf 80%,
-      #e8a87c 90%,
-      #f5d89a 100%
+      #8bb8e8 12%,
+      #c2a8cf 24%,
+      #e8a87c 36%,
+      #f5d89a 48%,
+      #c9e4ca 60%,
+      #7fcdcd 72%,
+      #8bb8e8 84%,
+      #c2a8cf 100%
     );
   background-size: 150vw 200vh;
   background-position: -10vw var(--bg-pos-y, 100%);
@@ -217,6 +220,13 @@ a {
   opacity: var(--header-opacity, 0);
   pointer-events: none;
   z-index: -2;
+}
+
+@media (max-width: 640px) {
+  .site-header::before {
+    background-size: 300vw 150vh;
+    background-position: -50vw var(--bg-pos-y, 100%);
+  }
 }
 
 /* 半透明遮罩层 + 毛玻璃 - 由独立元素提供 */
