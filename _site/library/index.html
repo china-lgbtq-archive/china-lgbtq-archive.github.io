@@ -200,14 +200,17 @@
         dropdownMenu.addEventListener('mouseenter', openDropdown);
         dropdownMenu.addEventListener('mouseleave', closeDropdown);
         
-        // 点击其他地方取消固定并关闭
+        // 点击 header 外面取消固定并关闭
         document.addEventListener('click', function(e) {
-          if (!navDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            isPinned = false;
-            dropdownMenu.classList.remove('show');
-            navDropdown.classList.remove('hover');
-            header.classList.remove('dropdown-open');
+          // 点击了 header 内部则不关闭
+          if (header.contains(e.target)) {
+            return;
           }
+          
+          isPinned = false;
+          dropdownMenu.classList.remove('show');
+          navDropdown.classList.remove('hover');
+          header.classList.remove('dropdown-open');
         });
         
         window.addEventListener('resize', updateHeaderHeight);
