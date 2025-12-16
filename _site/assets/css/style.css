@@ -1491,23 +1491,23 @@ a {
 }
 
 @media (max-width: 640px) {
-  /* 移动端修复 - 静态渐变 */
+  /* 移动端修复 - 彩虹渐变背景 */
   html {
     background: 
       linear-gradient(
-        135deg,
+        180deg,
         #7fcdcd 0%,
-        #8bb8e8 15%,
-        #c2a8cf 30%,
-        #e8a87c 45%,
-        #f5d89a 60%,
-        #c9e4ca 75%,
-        #7fcdcd 90%,
-        #8bb8e8 100%
+        #8bb8e8 14%,
+        #c2a8cf 28%,
+        #e8a87c 42%,
+        #f5d89a 56%,
+        #c9e4ca 70%,
+        #8bb8e8 85%,
+        #c2a8cf 100%
       );
-    background-size: 100% 100%;
-    background-position: center;
-    background-attachment: fixed;
+    background-size: 100% 100vh;
+    background-attachment: scroll;
+    background-repeat: repeat-y;
   }
   
   .site-header::before {
