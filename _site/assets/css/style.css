@@ -443,7 +443,7 @@ a {
   padding: var(--space-xl) var(--space-lg);
   padding-top: 25vh;
   background-color: #f0ebe3;
-  background-image: url('../images/lgbtq-hero.jpg?v=2');
+  background-image: url('../images/lgbtq-hero.jpg');
   background-size: cover;
   background-position: center calc(100% + 40px);
   background-repeat: no-repeat;
@@ -466,7 +466,7 @@ a {
 
 .hero-left {
   flex: 0 0 61.8%;
-  background-image: url('../images/lgbtq-hero.jpg?v=2');
+  background-image: url('../images/lgbtq-hero.jpg');
   background-size: cover;
   background-position: center bottom;
   position: relative;
@@ -624,7 +624,7 @@ a {
 
 .hero-image {
   flex: 0 0 61.8%;
-  background-image: url('../images/lgbtq-hero.jpg?v=2');
+  background-image: url('../images/lgbtq-hero.jpg');
   background-size: cover;
   background-position: center bottom;
   position: relative;
@@ -823,12 +823,20 @@ a {
   transform: translateX(-50%);
   color: #8B0000;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   cursor: pointer;
+}
+
+.scroll-hint:hover {
+  transform: translateX(-50%) translateY(5px);
 }
 
 .scroll-hint.visible {
   opacity: 0.8;
+}
+
+.scroll-hint.visible:hover {
+  opacity: 1;
 }
 
 .scroll-hint.hidden {
@@ -2001,7 +2009,7 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url('../images/lgbtq-hero.jpg?v=2');
+    background-image: url('../images/lgbtq-hero.jpg');
     background-size: cover;
     background-position: center bottom;
   }
@@ -2052,7 +2060,7 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url('../images/lgbtq-hero.jpg?v=2');
+    background-image: url('../images/lgbtq-hero.jpg');
     background-size: cover;
     background-position: center bottom;
   }
