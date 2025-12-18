@@ -2102,7 +2102,7 @@ a {
   /* 其他页面移动端标题居中 */
   .hero-split .hero-right {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 0;
