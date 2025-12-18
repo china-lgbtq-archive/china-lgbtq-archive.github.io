@@ -28,14 +28,14 @@ chars = ''.join(titles)
 unique_chars = ''.join(sorted(set(chars)))
 print(f"需要的字符 ({len(unique_chars)} 个): {unique_chars}")
 
-# 生成 SanJi 字体子集
-print("\n正在生成 SanJi 字体子集...")
+# 生成 HuiwenKai 字体子集
+print("\n正在生成 HuiwenKai 字体子集...")
 args = [
-    "SanJiXingKaiJianTi-Cu-2.ttf",    # 输入文件
-    f"--text={unique_chars}",         # 要保留的字符
-    "--output-file=SanJi-subset.woff2",  # 输出文件
-    "--flavor=woff2",                 # 输出格式
-    "--layout-features=*",            # 保留所有布局特性
+    "huiwen-kai.ttf",                # 输入文件
+    f"--text={unique_chars}",        # 要保留的字符
+    "--output-file=HuiwenKai-subset.woff2",  # 输出文件
+    "--flavor=woff2",                # 输出格式
+    "--layout-features=*",           # 保留所有布局特性
 ]
 subset_main(args)
-print("完成! 输出文件: SanJi-subset.woff2")
+print("完成! 输出文件: HuiwenKai-subset.woff2")

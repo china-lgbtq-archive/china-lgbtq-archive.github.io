@@ -48,8 +48,8 @@
 }
 
 @font-face {
-  font-family: 'SanJi';
-  src: url('../fonts/SanJi-subset.woff2') format('woff2');
+  font-family: 'HuiwenKai';
+  src: url('../fonts/HuiwenKai-subset.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -527,7 +527,7 @@ a {
 }
 
 .hero h1 {
-  font-family: 'SanJi', var(--font-serif);
+  font-family: 'HuiwenKai', var(--font-serif);
   font-size: clamp(3.5rem, 10vw, 7rem);
   font-weight: normal;
   color: #fff;
