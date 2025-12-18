@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>test 2 | 中国性少数历史档案</title>
   <meta name="description" content="从2020年到现在，我陆陆续续写了有将近20万字的文章，这些是直接和性少数整体相关的。我对于性少数运动、政治、社会这些不同的议题都有了不小的变化。如果从时间顺序来看，也许读者能注意到我在观念上的一些微妙的变迁。但是有一点是不怎么变的，那就是我仍然会持续地写下去，而且不仅仅是写下去，还要做更切实的事情。谨以此文辑纪...">
-  <link rel="preload" href="/assets/fonts/HanYi-subset.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preload" href="/assets/fonts/HuiwenMing-subset.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/images/lgbtq-hero.jpg" as="image">
+  <link rel="stylesheet" href="/assets/css/style.css?v=55">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* 防止闪烁 - 预设背景色 */
+    html { background-color: #ede5da; }
+  </style>
 </head>
-<body>
+<body class="">
   <header class="site-header">
     <!-- 毛玻璃背景层 -->
     <div class="header-glass"></div>
@@ -65,16 +71,14 @@
     </div>
   </header>
 
-  <div class="hero-wrapper">
+  <div class="hero-wrapper entry-hero">
     <div class="hero-blur-overlay"></div>
-    <section class="hero">
-      
+    
+    <section class="hero hero-entry">
       <a href="javascript:history.back()" class="hero-back-btn" title="返回">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </a>
-      
       <div class="hero-content">
-        
         <p class="hero-date">2024年12月11日</p>
         <h1>test 2</h1>
         
@@ -84,9 +88,9 @@
           
         </div>
         
-        
       </div>
     </section>
+    
   </div>
 
   <main class="main-content">
@@ -305,6 +309,35 @@
       }, 50);
       
       window.addEventListener('scroll', checkScroll);
+      
+      // 下滑提示箭头
+      const scrollHint = document.querySelector('.scroll-hint');
+      if (scrollHint) {
+        // 初始化：根据滚动位置决定是否显示
+        function updateScrollHint() {
+          if (window.scrollY > 100) {
+            scrollHint.classList.remove('visible');
+            scrollHint.classList.add('hidden');
+          } else {
+            scrollHint.classList.add('visible');
+            scrollHint.classList.remove('hidden');
+          }
+        }
+        
+        // 初始检查
+        updateScrollHint();
+        
+        // 点击滚动到内容区
+        scrollHint.addEventListener('click', function() {
+          const mainContent = document.querySelector('.main-content');
+          if (mainContent) {
+            mainContent.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+        
+        // 滚动时更新
+        window.addEventListener('scroll', updateScrollHint);
+      }
     })();
   </script>
 </body>

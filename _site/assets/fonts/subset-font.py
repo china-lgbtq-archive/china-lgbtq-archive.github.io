@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-生成字体子集（简体标题）
+生成字体子集（简体标题 + 导航）
 运行方式: python3 subset-font.py
 需要先安装: pip3 install fonttools brotli
 """
 
 from fontTools.subset import main as subset_main
 
-# 所有页面标题需要的简体字符
+# 所有页面标题 + 导航需要的简体字符
 titles = [
     "中国性少数历史档案",  # 首页
     "宗旨",              # about
@@ -20,6 +20,8 @@ titles = [
     "序言",              # entry
     "专题文章",          # library/topics
     "网站发起人文辑",    # library/founder
+    "首页",              # nav
+    "关于",              # nav
 ]
 
 chars = ''.join(titles)
@@ -27,6 +29,18 @@ chars = ''.join(titles)
 # 去重
 unique_chars = ''.join(sorted(set(chars)))
 print(f"需要的字符 ({len(unique_chars)} 个): {unique_chars}")
+
+# 生成 HuiwenMing 字体子集
+print("\n正在生成 HuiwenMing 字体子集...")
+args = [
+    "huiwen-ming.ttf",               # 输入文件
+    f"--text={unique_chars}",        # 要保留的字符
+    "--output-file=HuiwenMing-subset.woff2",  # 输出文件
+    "--flavor=woff2",                # 输出格式
+    "--layout-features=*",           # 保留所有布局特性
+]
+subset_main(args)
+print("完成! 输出文件: HuiwenMing-subset.woff2")
 
 # 生成 HuiwenKai 字体子集
 print("\n正在生成 HuiwenKai 字体子集...")

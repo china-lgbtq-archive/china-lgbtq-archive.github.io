@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>联系我们 | 中国性少数历史档案</title>
   <meta name="description" content="">
-  <link rel="preload" href="/assets/fonts/HanYi-subset.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preload" href="/assets/fonts/HuiwenMing-subset.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/images/lgbtq-hero.jpg" as="image">
+  <link rel="stylesheet" href="/assets/css/style.css?v=55">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* 防止闪烁 - 预设背景色 */
+    html { background-color: #ede5da; }
+  </style>
 </head>
-<body>
+<body class="">
   <header class="site-header">
     <!-- 毛玻璃背景层 -->
     <div class="header-glass"></div>
@@ -67,14 +73,21 @@
 
   <div class="hero-wrapper">
     <div class="hero-blur-overlay"></div>
-    <section class="hero">
-      
-      <div class="hero-content">
-        
-        <h1>联系我们</h1>
-        
+    
+    <section class="hero hero-split">
+      <div class="hero-right">
+        <div class="hero-content">
+          
+          <h1 class="title-col">联系我们</h1>
+          
+        </div>
+        <div class="scroll-hint">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="28" viewBox="0 0 50 28" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l23 23L48 2"/></svg>
+        </div>
       </div>
+      <div class="hero-left"></div>
     </section>
+    
   </div>
 
   <main class="main-content">
@@ -246,6 +259,35 @@
       }, 50);
       
       window.addEventListener('scroll', checkScroll);
+      
+      // 下滑提示箭头
+      const scrollHint = document.querySelector('.scroll-hint');
+      if (scrollHint) {
+        // 初始化：根据滚动位置决定是否显示
+        function updateScrollHint() {
+          if (window.scrollY > 100) {
+            scrollHint.classList.remove('visible');
+            scrollHint.classList.add('hidden');
+          } else {
+            scrollHint.classList.add('visible');
+            scrollHint.classList.remove('hidden');
+          }
+        }
+        
+        // 初始检查
+        updateScrollHint();
+        
+        // 点击滚动到内容区
+        scrollHint.addEventListener('click', function() {
+          const mainContent = document.querySelector('.main-content');
+          if (mainContent) {
+            mainContent.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+        
+        // 滚动时更新
+        window.addEventListener('scroll', updateScrollHint);
+      }
     })();
   </script>
 </body>
