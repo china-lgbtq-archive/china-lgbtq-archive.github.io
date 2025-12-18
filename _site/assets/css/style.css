@@ -476,7 +476,7 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(237, 229, 218, 0.35);
+  background: rgba(237, 229, 218, 0.15);
   pointer-events: none;
 }
 
@@ -569,9 +569,9 @@ a {
 
 /* 黑色字 - 右边图片上 */
 .hero-title-bar .title-light {
-  color: #1a1a1a;
+  color: #3a3028;
   clip-path: polygon(calc(38.2vw - clamp(1.5rem, 5vw, 5rem) - 3px) 0, 100% 0, 100% 100%, calc(38.2vw - clamp(1.5rem, 5vw, 5rem) - 3px) 100%);
-  text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.3);
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.4);
 }
 
 /* 桌面端隐藏换行 */
@@ -634,7 +634,7 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(237, 229, 218, 0.35);
+  background: rgba(237, 229, 218, 0.15);
   pointer-events: none;
 }
 
@@ -832,7 +832,7 @@ a {
 }
 
 .scroll-hint.visible {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .scroll-hint.visible:hover {
@@ -1017,7 +1017,7 @@ a {
   transform: translateX(-50%);
   width: 10px;
   height: 10px;
-  background: var(--color-bg);
+  background: rgba(139, 0, 0, 0.15);
   border: 2px solid rgba(139, 0, 0, 0.3);
   border-radius: 50%;
   z-index: 2;
@@ -1032,12 +1032,17 @@ a {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: #8B0000;
+  background: rgba(139, 0, 0, 0.3);
+  transition: background 0.3s;
 }
 
 .card.filled::before {
   background: #8B0000;
   border-color: #8B0000;
+}
+
+.card.filled::after {
+  background: #8B0000;
 }
 
 .card.filled {
@@ -2018,9 +2023,8 @@ a {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(237, 229, 218, 0.35);
+    background: rgba(237, 229, 218, 0.15);
     pointer-events: none;
-    display: block;
   }
   
   .hero-left {
@@ -2069,9 +2073,8 @@ a {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(237, 229, 218, 0.35);
+    background: rgba(237, 229, 218, 0.15);
     pointer-events: none;
-    display: block;
   }
   
   /* 移动端显示换行 */
