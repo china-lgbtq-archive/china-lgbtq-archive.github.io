@@ -534,6 +534,19 @@ a {
   position: relative;
 }
 
+/* 右侧渐变过渡 */
+.hero-right::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -60px;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(to right, #ede5da, transparent);
+  pointer-events: none;
+  z-index: 5;
+}
+
 .hero-split .hero-content {
   max-width: none;
 }
@@ -648,6 +661,20 @@ a {
   flex-direction: column;
   justify-content: flex-start;
   background: #ede5da;
+  position: relative;
+}
+
+/* 右侧渐变过渡 */
+.hero-intro::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -60px;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(to right, #ede5da, transparent);
+  pointer-events: none;
+  z-index: 5;
 }
 
 .hero-intro p {
