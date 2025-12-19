@@ -300,7 +300,7 @@ a {
 
 .nav-links a {
   font-family: 'HuiwenMing', var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: #333;
   text-shadow: none;
@@ -311,12 +311,32 @@ a {
   transition: color 0.2s ease;
 }
 
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0.6rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  background: #8B0000;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
 .nav-links a:hover {
   color: #8B0000;
 }
 
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
 .nav-links a.active {
   color: #8B0000;
+}
+
+.nav-links a.active::after {
+  transform: scaleX(1);
 }
 
 /* 下拉菜单 */
@@ -332,12 +352,25 @@ a {
   gap: 0.25rem;
   cursor: pointer;
   font-family: 'HuiwenMing', var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: #333;
   text-shadow: none;
   padding: 1rem 1.5rem;
   transition: color 0.2s ease;
+  position: relative;
+}
+
+.nav-dropdown-trigger::after {
+  content: '';
+  position: absolute;
+  bottom: 0.6rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  background: #8B0000;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
 }
 
 .nav-dropdown:hover .nav-dropdown-trigger,
@@ -345,8 +378,17 @@ a {
   color: #8B0000;
 }
 
+.nav-dropdown:hover .nav-dropdown-trigger::after,
+.nav-dropdown.hover .nav-dropdown-trigger::after {
+  transform: scaleX(1);
+}
+
 .nav-dropdown-trigger.active {
   color: #8B0000;
+}
+
+.nav-dropdown-trigger.active::after {
+  transform: scaleX(1);
 }
 
 .dropdown-arrow {
@@ -570,9 +612,12 @@ a {
 
 /* 黑色字 - 右边图片上 */
 .hero-title-bar .title-light {
-  color: #3a3028;
+  color: #2a2018;
   clip-path: polygon(calc(38.2vw - clamp(1.5rem, 5vw, 5rem) - 3px) 0, 100% 0, 100% 100%, calc(38.2vw - clamp(1.5rem, 5vw, 5rem) - 3px) 100%);
-  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.4);
+  text-shadow: 
+    0 0 8px rgba(237, 229, 218, 0.9),
+    0 0 15px rgba(237, 229, 218, 0.7),
+    1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 /* 桌面端隐藏换行 */
@@ -610,7 +655,7 @@ a {
   font-size: clamp(0.95rem, 2.5vw, 1.15rem);
   font-weight: 600;
   line-height: 2.6;
-  color: #444;
+  color: #2a2a2a;
   margin-bottom: var(--space-md);
 }
 
