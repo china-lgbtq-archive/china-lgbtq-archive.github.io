@@ -470,13 +470,14 @@ a {
   background-size: cover;
   background-position: center bottom;
   position: relative;
+  filter: saturate(0.92) hue-rotate(-5deg);
 }
 
 .hero-left::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(237, 229, 218, 0.15);
+  background: rgba(160, 140, 110, 0.4);
   pointer-events: none;
 }
 
@@ -628,13 +629,14 @@ a {
   background-size: cover;
   background-position: center bottom;
   position: relative;
+  filter: saturate(0.92) hue-rotate(-5deg);
 }
 
 .hero-image::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(237, 229, 218, 0.15);
+  background: rgba(160, 140, 110, 0.4);
   pointer-events: none;
 }
 
@@ -2017,14 +2019,18 @@ a {
     background-image: url('../images/lgbtq-hero.jpg');
     background-size: cover;
     background-position: center bottom;
+    position: relative;
+    filter: saturate(0.92) hue-rotate(-5deg);
   }
   
   .hero-split::before {
-    content: '';
+    content: '' !important;
+    display: block !important;
     position: absolute;
     inset: 0;
-    background: rgba(237, 229, 218, 0.15);
+    background: rgba(160, 140, 110, 0.4);
     pointer-events: none;
+    z-index: 1;
   }
   
   .hero-left {
@@ -2067,14 +2073,18 @@ a {
     background-image: url('../images/lgbtq-hero.jpg');
     background-size: cover;
     background-position: center bottom;
+    position: relative;
+    filter: saturate(0.92) hue-rotate(-5deg);
   }
   
   .hero-home::before {
-    content: '';
+    content: '' !important;
+    display: block !important;
     position: absolute;
     inset: 0;
-    background: rgba(237, 229, 218, 0.15);
+    background: rgba(160, 140, 110, 0.4);
     pointer-events: none;
+    z-index: 1;
   }
   
   /* 移动端显示换行 */
@@ -2091,6 +2101,7 @@ a {
     text-align: center;
     display: flex;
     justify-content: center;
+    z-index: 2;
   }
   
   .hero-title-bar h1 {
