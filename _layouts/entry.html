@@ -11,7 +11,7 @@ body_class: entry-layout
 
   {% if page.source %}
   <div class="entry-source">
-    来源：{% if page.source_url %}<a href="{{ page.source_url }}" target="_blank" rel="noopener">{{ page.source }}</a>{% else %}{{ page.source }}{% endif %}
+    <a href="{{ page.source }}" target="_blank" rel="noopener">来源 ↗</a>
   </div>
   {% endif %}
 </article>
