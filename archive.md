@@ -55,7 +55,7 @@ permalink: /archive/
     </thead>
     <tbody>
       {% for entry in sorted_entries %}
-      <tr class="archive-row" data-year="{{ entry.date | date: '%Y' }}" data-tags="{{ entry.tags | join: ',' }}" data-title="{{ entry.title }}" data-summary="{{ entry.summary }}" onclick="window.location='{{ entry.url | relative_url }}'">
+      <tr class="archive-row" data-year="{{ entry.date | date: '%Y' }}" data-tags="{{ entry.tags | join: ',' }}" data-title="{{ entry.title | xml_escape }}" data-summary="{{ entry.summary | xml_escape }}" onclick="window.location='{{ entry.url | relative_url }}'">
         <td class="col-date">{{ entry.date | date: "%Y-%m-%d" }}</td>
         <td class="col-title">{{ entry.title }}</td>
         <td class="col-tags">
